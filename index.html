@@ -1,0 +1,3318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sortlist Radar - Turn Website Visitors Into Your Next Clients</title>
+  <meta name="description" content="See which companies visit your agency website, get verified decision-maker contacts, and reach out before your competitors. Built for agencies. Powered by Sortlist.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Real Sortlist design tokens */
+      --primary-500: #200DF2;
+      --primary-600: #1A0BC4;
+      --primary-700: #150996;
+      --primary-800: #100768;
+      --primary-900: #020219;
+      --primary-100: #DCDAFD;
+      --primary-200: #B9B5FB;
+      --primary-50: #EDECFE;
+
+      --secondary-100: #FBFAF9;
+      --secondary-200: #F1EDEA;
+      --secondary-300: #E7DFDA;
+      --secondary-400: #B8AFA8;
+      --secondary-500: #7E7367;
+      --secondary-600: #5C534A;
+      --secondary-700: #463F39;
+      --secondary-800: #2A2521;
+      --secondary-900: #1B1917;
+      --secondary-950: #0F0D0A;
+
+      --danger-500: #BD0F58;
+      --danger-200: #F7DEE8;
+      --success-500: #5C9550;
+      --success-200: #E2F0DB;
+
+      --white: #FFFFFF;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      font-weight: 400;
+      color: var(--secondary-700);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .dot {
+      color: var(--primary-500);
+      font-family: var(--font-serif);
+    }
+
+    /* Feature H2s: serif Playfair Display bold, NOT italic */
+    h2.serif {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    /* Secondary/utility H2s: Inter bold */
+    h2 {
+      font-family: var(--font);
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    h2 em {
+      font-style: italic;
+    }
+
+    .container {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---- NAVBAR ---- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--secondary-300);
+      height: 80px;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-monogram {
+      flex-shrink: 0;
+    }
+
+    .nav-wordmark {
+      flex-shrink: 0;
+    }
+
+    .nav-badge {
+      background: var(--primary-50);
+      color: var(--primary-500);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 40px;
+      border: 1px solid var(--primary-200);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-500);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 13px 20px;
+      min-height: 44px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 1px 2px 0 rgba(32,13,242,.18), 0 0 8px 0 rgba(32,13,242,.12);
+    }
+
+    .nav-cta:hover { background: var(--primary-600); }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+      background: var(--secondary-950);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-pretitle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 40px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero-pretitle-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success-500);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(38px, 5.5vw, 64px);
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1;
+      color: var(--white);
+      max-width: 800px;
+      margin: 0 auto 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--white);
+    }
+
+    .hero h1 .dot {
+      color: var(--primary-500);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--secondary-500);
+      max-width: 620px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-500);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 13px 20px;
+      min-height: 52px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 1px 2px 0 rgba(32,13,242,.18), 0 0 8px 0 rgba(32,13,242,.12);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-600);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      color: var(--secondary-950);
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 13px 20px;
+      min-height: 52px;
+      border-radius: 10px;
+      border: 1px solid var(--secondary-300);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 1px 2px 0 hsla(31,10%,45%,.18), 0 0 8px 0 hsla(31,10%,45%,.12);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--secondary-500);
+    }
+
+    .hero-small-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 20px;
+    }
+
+    .hero-see-action {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .hero-see-action:hover {
+      color: var(--primary-500);
+    }
+
+    /* Wave divider under hero */
+    .hero-wave {
+      background: var(--secondary-900);
+      height: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-wave::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: var(--white);
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+
+    .module-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: var(--font);
+      font-style: normal;
+      padding: 6px 14px;
+      border-radius: 40px;
+      margin-bottom: 16px;
+    }
+
+    .module-badge-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .badge-identify {
+      background: var(--danger-200);
+      color: var(--danger-500);
+      border: none;
+    }
+
+    .badge-signal {
+      background: var(--success-200);
+      color: var(--success-500);
+      border: none;
+    }
+
+    .badge-compare {
+      background: var(--secondary-200);
+      color: var(--secondary-700);
+      border: none;
+    }
+
+    .badge-results {
+      background: var(--success-200);
+      color: var(--success-500);
+      border: none;
+    }
+
+    /* ---- SOCIAL PROOF BAR ---- */
+    .social-proof-bar {
+      padding: 48px 0 40px;
+      background: var(--white);
+      border-bottom: 1px solid var(--secondary-300);
+      text-align: center;
+    }
+
+    .social-proof-bar p {
+      font-size: 14px;
+      color: var(--secondary-500);
+      font-weight: 500;
+      margin-bottom: 32px;
+      letter-spacing: 0.3px;
+      font-family: var(--font);
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .logo-row img {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.45;
+      transition: all 0.3s;
+    }
+
+    .logo-row img:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+
+    /* ---- PROBLEM SECTION ---- */
+    .problem {
+      padding: 128px 0 64px;
+      background: var(--white);
+    }
+
+    .problem .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .problem-content h2 {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1.15;
+      color: var(--secondary-950);
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .problem-content h2 em {
+      font-style: italic;
+      color: var(--primary-500);
+    }
+
+    .problem-content p {
+      font-size: 17px;
+      color: var(--secondary-600);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .problem-stat {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 32px;
+      padding: 24px;
+      background: var(--primary-50);
+      border-radius: 12px;
+      border: 1px solid var(--primary-200);
+    }
+
+    .problem-stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--primary-500);
+      line-height: 1;
+      letter-spacing: -2px;
+      flex-shrink: 0;
+    }
+
+    .problem-stat-text {
+      font-size: 15px;
+      color: var(--secondary-700);
+      line-height: 1.5;
+    }
+
+    .problem-visual {
+      background: var(--secondary-100);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid var(--secondary-300);
+    }
+
+    .pv-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--secondary-300);
+    }
+
+    .pv-header-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--secondary-500);
+    }
+
+    .pv-header-live {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--success-500);
+    }
+
+    .pv-header-live-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--success-500);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    .visitor-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .visitor-line.ghost {
+      background: var(--secondary-200);
+      color: var(--secondary-500);
+    }
+
+    .visitor-line.identified {
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      color: var(--secondary-800);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .visitor-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .visitor-avatar.ghost-av {
+      background: var(--secondary-300);
+      color: var(--secondary-500);
+    }
+
+    .visitor-avatar.id-av {
+      background: var(--primary-50);
+      color: var(--primary-500);
+    }
+
+    .visitor-avatar-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: var(--white);
+      padding: 4px;
+      border: 1px solid var(--secondary-300);
+    }
+
+    .visitor-company {
+      flex: 1;
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .visitor-pages {
+      font-size: 11px;
+      color: var(--secondary-400);
+      flex-shrink: 0;
+    }
+
+    .visitor-tag {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .tag-unknown { background: var(--secondary-300); color: var(--secondary-500); }
+    .tag-identified { background: var(--success-200); color: var(--success-500); }
+
+    .visitor-signal {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--primary-500);
+      background: var(--primary-50);
+      border: 1px solid var(--primary-200);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 6px;
+      margin-left: 44px;
+    }
+
+    .visitor-signal-icon {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+
+    .visitor-line-wrap {
+      margin-bottom: 6px;
+    }
+
+    .visitor-line-wrap .visitor-line {
+      margin-bottom: 0;
+    }
+
+    /* ---- STEPS SECTION ---- */
+    .steps {
+      padding: 128px 0 64px;
+      background: var(--secondary-100);
+      color: var(--secondary-950);
+    }
+
+    .steps-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .steps-header h2 {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+      color: var(--secondary-950);
+    }
+
+    .steps-header p {
+      font-size: 17px;
+      color: var(--secondary-500);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      border-radius: 16px;
+      padding: 36px;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-card:hover {
+      border-color: var(--primary-500);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--secondary-950);
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .step-card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      color: var(--secondary-950);
+    }
+
+    .step-card p {
+      font-size: 15px;
+      color: var(--secondary-500);
+      line-height: 1.7;
+      margin-top: auto;
+    }
+
+    .step-icon { margin-bottom: 16px; }
+
+    /* ---- FEATURE MINI-VISUALS ---- */
+    .feature-visual {
+      background: var(--secondary-100);
+      border: 1px solid var(--secondary-300);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 24px;
+    }
+
+    /* Feature 1: Live feed */
+    .feat-feed-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .feat-feed-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--secondary-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .feat-live-dot {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--danger-500);
+    }
+
+    .feat-live-dot::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--danger-500);
+      animation: pulse 2s infinite;
+    }
+
+    .feat-feed-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .feat-feed-line:last-child { margin-bottom: 0; }
+
+    .feat-feed-line.is-id {
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      color: var(--secondary-800);
+    }
+
+    .feat-feed-line.is-ghost {
+      background: var(--secondary-200);
+      color: var(--secondary-400);
+    }
+
+    .feat-feed-logo {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: var(--white);
+      padding: 2px;
+      border: 1px solid var(--secondary-300);
+    }
+
+    .feat-feed-ghost-av {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: var(--secondary-300);
+      flex-shrink: 0;
+    }
+
+    .feat-feed-name {
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .feat-feed-page {
+      color: var(--secondary-400);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .feat-feed-time {
+      color: var(--secondary-400);
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    .feat-feed-badge {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .feat-feed-badge.id { background: var(--success-200); color: var(--success-500); }
+    .feat-feed-badge.anon { background: var(--secondary-300); color: var(--secondary-500); }
+
+    /* Feature 2: Contact card */
+    .feat-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feat-contact-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feat-contact-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-50);
+      color: var(--primary-500);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feat-contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .feat-contact-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--secondary-800);
+    }
+
+    .feat-contact-role {
+      font-size: 11px;
+      color: var(--secondary-400);
+    }
+
+    .feat-contact-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .feat-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      border-radius: 6px;
+      font-size: 11px;
+      color: var(--secondary-700);
+    }
+
+    .feat-contact-row svg {
+      flex-shrink: 0;
+      color: var(--secondary-400);
+    }
+
+    .feat-verified {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--success-500);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Feature 3: Integration lines */
+    .feat-integ-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      margin-bottom: 4px;
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      color: var(--secondary-800);
+    }
+
+    .feat-integ-line:last-child { margin-bottom: 0; }
+
+    .feat-integ-logo {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .feat-integ-name {
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .feat-integ-status {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--success-500);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .feat-push-also {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--secondary-400);
+      margin-top: 8px;
+    }
+
+    .feat-push-also-label {
+      flex-shrink: 0;
+    }
+
+    .feat-push-logos {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .feat-push-logos img {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      opacity: 0.5;
+      filter: grayscale(100%);
+    }
+
+    /* ---- COMPARISON ---- */
+    .comparison {
+      padding: 128px 0 64px;
+      background: var(--secondary-100);
+    }
+
+    .comparison-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .comparison-header h2 {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1.15;
+      color: var(--secondary-950);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .comparison-header p {
+      font-size: 17px;
+      color: var(--secondary-600);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--secondary-300);
+      background: var(--white);
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 16px 24px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .comparison-table thead th {
+      background: var(--secondary-200);
+      font-weight: 500;
+      color: var(--secondary-500);
+      border-bottom: 1px solid var(--secondary-300);
+    }
+
+    .comparison-table thead th:last-child {
+      background: var(--primary-50);
+      color: var(--primary-500);
+      font-weight: 700;
+    }
+
+    .comparison-table tbody td {
+      border-bottom: 1px solid var(--secondary-200);
+      color: var(--secondary-700);
+    }
+
+    .comparison-table tbody tr:last-child td { border-bottom: none; }
+
+    .comparison-table tbody td:first-child {
+      font-weight: 500;
+      color: var(--secondary-800);
+    }
+
+    .comparison-table tbody td:last-child {
+      background: var(--primary-50);
+      color: var(--primary-500);
+      font-weight: 500;
+    }
+
+    .check { color: var(--success-500); font-weight: 700; }
+    .cross { color: var(--secondary-400); }
+
+    /* ---- TESTIMONIALS ---- */
+    .testimonials {
+      padding: 128px 0 64px;
+      background: var(--primary-900);
+      color: var(--white);
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .testimonials-header h2 {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1.15;
+      color: var(--white);
+      letter-spacing: -1px;
+    }
+
+    /* Single wide editorial testimonial block */
+    .testimonial-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .testimonial-block-content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(32, 13, 242, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--white);
+    }
+
+    .testimonial-role {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .testimonial-metric {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(92, 149, 80, 0.2);
+      color: var(--success-500);
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      align-self: flex-start;
+    }
+
+    .testimonial-block-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .testimonial-stat-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .testimonial-stat-number {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .testimonial-stat-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    @media (max-width: 768px) {
+      .testimonial-block {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* ---- PRICING ---- */
+    .pricing {
+      padding: 128px 0 64px;
+      background: var(--white);
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .pricing-header h2 {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--secondary-950);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .pricing-header p {
+      font-size: 17px;
+      color: var(--secondary-600);
+    }
+
+    .pricing-single {
+      max-width: 560px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      border-radius: 16px;
+      padding: 48px 40px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.04);
+    }
+
+    .pricing-single-title {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 700;
+      font-style: normal;
+      color: var(--secondary-950);
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .pricing-single-sub {
+      font-size: 15px;
+      color: var(--secondary-500);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 32px;
+      text-align: left;
+      display: inline-block;
+    }
+
+    .pricing-features li {
+      font-size: 14px;
+      color: var(--secondary-700);
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pricing-features li::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      background: var(--success-200);
+      border-radius: 50%;
+      display: inline-flex;
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C9550' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: 11px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .pricing-ctas {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .pricing-cta {
+      flex: 1;
+      padding: 13px 20px;
+      min-height: 52px;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pricing-cta-primary {
+      background: var(--primary-500);
+      color: var(--white);
+      border: none;
+      box-shadow: 0 1px 2px 0 rgba(32,13,242,.18), 0 0 8px 0 rgba(32,13,242,.12);
+    }
+
+    .pricing-cta-primary:hover { background: var(--primary-600); }
+
+    .pricing-cta-outline {
+      background: transparent;
+      color: var(--secondary-700);
+      border: 1px solid var(--secondary-300);
+      box-shadow: 0 1px 2px 0 hsla(31,10%,45%,.18), 0 0 8px 0 hsla(31,10%,45%,.12);
+    }
+
+    .pricing-cta-outline:hover {
+      border-color: var(--primary-500);
+      color: var(--primary-500);
+    }
+
+    .pricing-trust {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--secondary-400);
+    }
+
+    @media (max-width: 480px) {
+      .pricing-single {
+        padding: 36px 24px;
+      }
+
+      .pricing-ctas {
+        flex-direction: column;
+      }
+    }
+
+    /* ---- FAQ ---- */
+    .faq {
+      padding: 128px 0 64px;
+      background: var(--white);
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .faq-header h2 {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--secondary-950);
+      letter-spacing: -1px;
+    }
+
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--secondary-100);
+      border: 1px solid var(--secondary-300);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--secondary-800);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .faq-question:hover { color: var(--primary-500); }
+
+    .faq-icon {
+      font-size: 20px;
+      color: var(--secondary-400);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+
+    .faq-answer {
+      padding: 0 24px 20px;
+      font-size: 15px;
+      color: var(--secondary-600);
+      line-height: 1.7;
+      display: none;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* ---- FINAL CTA ---- */
+    .final-cta {
+      padding: 128px 0 64px;
+      background: var(--primary-900);
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 700;
+      font-style: normal;
+      color: var(--white);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .final-cta p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      color: var(--secondary-950);
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 500;
+      padding: 13px 20px;
+      min-height: 52px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 1px 2px 0 hsla(31,10%,45%,.18), 0 0 8px 0 hsla(31,10%,45%,.12);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .final-trust {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .final-trust span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      padding: 60px 0 32px;
+      background: var(--white);
+      border-top: 1px solid var(--secondary-300);
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .footer-brand {
+      max-width: 280px;
+    }
+
+    .footer-brand-name {
+      margin-bottom: 12px;
+      line-height: 0;
+    }
+
+    .footer-tagline {
+      font-size: 14px;
+      color: var(--secondary-500);
+      line-height: 1.5;
+      font-style: italic;
+      font-family: var(--font-serif);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 64px;
+    }
+
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--secondary-400);
+      margin-bottom: 12px;
+      font-family: var(--font);
+      font-style: normal;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: var(--secondary-700);
+      text-decoration: none;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--primary-500); }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--secondary-300);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 13px;
+      color: var(--secondary-400);
+    }
+
+    .footer-bottom a {
+      color: var(--secondary-500);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover { color: var(--primary-500); }
+
+    @media (max-width: 768px) {
+      .footer-top {
+        flex-direction: column;
+      }
+      .footer-links {
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .problem .container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 10px 12px;
+        font-size: 12px;
+      }
+
+      .hero h1 { font-size: 32px; }
+
+      .problem-content h2,
+      .steps-header h2,
+      .comparison-header h2,
+      .testimonials-header h2,
+      .pricing-header h2,
+      .faq-header h2,
+      .final-cta h2 {
+        font-size: 28px;
+      }
+
+      .problem-stat {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* =========================================
+       ANIMATIONS
+       ========================================= */
+
+    /* -- Scroll fade-in -- */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
+    }
+
+    [data-animate].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* -- Double marquee logo bar -- */
+    .marquee-wrapper {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .marquee-wrapper::before,
+    .marquee-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .marquee-wrapper::before {
+      left: 0;
+      background: linear-gradient(to right, var(--white), transparent);
+    }
+
+    .marquee-wrapper::after {
+      right: 0;
+      background: linear-gradient(to left, var(--white), transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 120px;
+      width: max-content;
+      animation: marquee-scroll 40s linear infinite;
+    }
+
+    .marquee-track img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.35;
+      flex-shrink: 0;
+      transition: opacity 0.3s;
+    }
+
+    .marquee-track img:hover {
+      opacity: 0.7;
+    }
+
+    @keyframes marquee-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+
+
+    /* -- Dashboard 2-phase animation -- */
+
+    /* Phase 1: ghost line transforms to identified */
+    .dash-line .visitor-line {
+      transition: all 0.5s cubic-bezier(.22,1,.36,1);
+    }
+
+    .dash-line .visitor-line.is-identified {
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      color: var(--secondary-800);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .dash-line .visitor-avatar,
+    .dash-line .visitor-avatar-img {
+      transition: all 0.3s cubic-bezier(.22,1,.36,1);
+    }
+
+    .dash-line .visitor-tag {
+      transition: all 0.3s cubic-bezier(.22,1,.36,1);
+    }
+
+    /* Dashboard fade for loop reset */
+    .problem-visual {
+      transition: opacity 0.35s ease;
+    }
+
+    .problem-visual.dash-resetting {
+      opacity: 0.15;
+    }
+
+    /* Phase 2: expand panel (contact + actions) — hidden by default */
+    .dash-expand {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transform: translateY(-4px);
+      transition: opacity 0.45s cubic-bezier(.22,1,.36,1),
+                  max-height 0.45s cubic-bezier(.22,1,.36,1),
+                  transform 0.45s cubic-bezier(.22,1,.36,1);
+      margin-top: 0;
+    }
+
+    .dash-expand.is-open {
+      opacity: 1;
+      max-height: 140px;
+      transform: translateY(0);
+      margin-top: 6px;
+    }
+
+    .dash-expand-contact {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    .dash-expand-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary-50);
+      color: var(--primary-500);
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .dash-expand-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .dash-expand-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--secondary-800);
+    }
+
+    .dash-expand-role {
+      font-size: 10px;
+      color: var(--secondary-400);
+    }
+
+    .dash-expand-email {
+      font-size: 10px;
+      color: var(--secondary-400);
+      flex-shrink: 0;
+    }
+
+    .dash-expand-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dash-expand-btn {
+      flex: 1;
+      text-align: center;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .dash-expand-btn-primary {
+      background: var(--primary-500);
+      color: var(--white);
+      border: none;
+      box-shadow: 0 1px 2px 0 rgba(32,13,242,.15);
+    }
+
+    .dash-expand-btn-primary:hover { background: var(--primary-600); }
+
+    .dash-expand-btn-primary.is-sent {
+      background: var(--success-500);
+      box-shadow: none;
+      pointer-events: none;
+      transform: scale(0.97);
+    }
+
+    .dash-expand-btn-secondary {
+      background: transparent;
+      color: var(--secondary-600);
+      border: 1px solid var(--secondary-300);
+    }
+
+    .dash-expand-btn-secondary:hover { border-color: var(--primary-500); color: var(--primary-500); }
+
+    /* ---- MARKETPLACE POWER SECTION ---- */
+    .marketplace {
+      padding: 128px 0 64px;
+      background: var(--secondary-100);
+    }
+
+    .marketplace .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .marketplace-content h2 {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1.15;
+      color: var(--secondary-950);
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .marketplace-content h2 em {
+      font-style: italic;
+      color: var(--primary-500);
+    }
+
+    .marketplace-content > p {
+      font-size: 17px;
+      color: var(--secondary-600);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .marketplace-stats {
+      display: flex;
+      gap: 24px;
+    }
+
+    .mp-stat {
+      flex: 1;
+      padding: 16px;
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .mp-stat-number {
+      display: block;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--secondary-950);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .mp-stat-label {
+      display: block;
+      font-size: 11px;
+      color: var(--secondary-500);
+      line-height: 1.3;
+    }
+
+    /* Marketplace flow visual */
+    .marketplace-visual {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid var(--secondary-300);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+
+    .mp-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mp-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .mp-step-num {
+      width: 24px;
+      height: 24px;
+      background: var(--secondary-950);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 10px;
+    }
+
+    .mp-step-card {
+      flex: 1;
+      background: var(--secondary-100);
+      border: 1px solid var(--secondary-300);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .mp-step-card-highlight {
+      background: var(--primary-50);
+      border-color: var(--primary-200);
+    }
+
+    /* Step 1: Search bar */
+    .mp-search-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--secondary-800);
+    }
+
+    .mp-search-icon {
+      flex-shrink: 0;
+      color: var(--secondary-400);
+    }
+
+    .mp-search-result {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .mp-google-icon { flex-shrink: 0; }
+
+    .mp-search-result-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mp-result-url {
+      color: var(--primary-500);
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    .mp-result-rank {
+      background: var(--success-200);
+      color: var(--success-500);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Step 1: Two source cards side by side */
+    .mp-source-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .mp-source-card {
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .mp-source-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--secondary-500);
+    }
+
+    .mp-source-header img,
+    .mp-source-header svg {
+      flex-shrink: 0;
+    }
+
+    .mp-source-query {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--secondary-800);
+      margin-bottom: 8px;
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    .mp-source-result {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .mp-source-result .mp-result-url {
+      font-size: 11px;
+    }
+
+    .mp-source-recommend {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--success-500);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Source cards staggered reveal inside Step 1 */
+    .mp-source-card {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.45s cubic-bezier(.22,1,.36,1), transform 0.45s cubic-bezier(.22,1,.36,1);
+    }
+
+    .mp-build-item.is-built .mp-source-card:nth-child(1) {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.15s;
+    }
+
+    .mp-build-item.is-built .mp-source-card:nth-child(2) {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.5s;
+    }
+
+    /* Typewriter cursor */
+    .mp-typewriter {
+      min-height: 1.4em;
+    }
+
+    .mp-typewriter.is-typing::after {
+      content: '|';
+      color: var(--secondary-400);
+      animation: mp-blink 0.6s step-end infinite;
+      margin-left: 1px;
+      font-weight: 400;
+    }
+
+    .mp-typewriter.is-done::before {
+      content: '\201C';
+    }
+
+    .mp-typewriter.is-done::after {
+      content: '\201D';
+      animation: none;
+      color: inherit;
+      margin-left: 0;
+      font-weight: inherit;
+    }
+
+    @keyframes mp-blink {
+      50% { opacity: 0; }
+    }
+
+    /* Result line hidden until typing done */
+    .mp-type-reveal {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s cubic-bezier(.22,1,.36,1), transform 0.35s cubic-bezier(.22,1,.36,1);
+    }
+
+    .mp-type-reveal.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Step 2: Ghost row (anonymous state) */
+    .mp-ghost-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--secondary-200);
+      border-radius: 8px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .mp-ghost-row.is-hidden {
+      opacity: 0;
+      transform: scale(0.96);
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .mp-ghost-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--secondary-300);
+      flex-shrink: 0;
+    }
+
+    .mp-ghost-lines {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .mp-ghost-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: var(--secondary-300);
+    }
+
+    .mp-ghost-bar-w1 { width: 70%; }
+    .mp-ghost-bar-w2 { width: 45%; }
+
+    .mp-ghost-tag {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--secondary-300);
+      color: var(--secondary-500);
+      flex-shrink: 0;
+    }
+
+    /* Step 2: Reveal elements (company, contact) */
+    .mp-s2-reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.45s cubic-bezier(.22,1,.36,1), transform 0.45s cubic-bezier(.22,1,.36,1);
+    }
+
+    .mp-s2-reveal.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Step 2: card needs relative for ghost absolute positioning */
+    #mp-step2 .mp-step-card {
+      position: relative;
+    }
+
+    /* Step 3: Reveal elements (header, rows, cta) */
+    .mp-s3-reveal {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s cubic-bezier(.22,1,.36,1), transform 0.4s cubic-bezier(.22,1,.36,1);
+    }
+
+    .mp-s3-reveal.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Step 3: CTA auto-click "Launched" state */
+    .mp-signal-cta.is-launched {
+      background: var(--success-500);
+      pointer-events: none;
+      transform: scale(0.97);
+    }
+
+    @media (max-width: 480px) {
+      .mp-source-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Step 2: Company + contact */
+    .mp-company-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .mp-company-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--secondary-600);
+      flex-shrink: 0;
+    }
+
+    .mp-company-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .mp-company-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--secondary-800);
+    }
+
+    .mp-company-meta {
+      font-size: 11px;
+      color: var(--secondary-400);
+    }
+
+    .mp-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      background: var(--white);
+      border: 1px solid var(--secondary-300);
+      border-radius: 8px;
+    }
+
+    .mp-contact-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary-50);
+      color: var(--primary-500);
+      font-size: 9px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .mp-contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+    }
+
+    .mp-contact-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--secondary-800);
+    }
+
+    .mp-contact-role {
+      font-size: 10px;
+      color: var(--secondary-400);
+    }
+
+    .mp-contact-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--success-500);
+      flex-shrink: 0;
+    }
+
+    /* Step 3: Signal */
+    .mp-signal-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary-500);
+      margin-bottom: 10px;
+    }
+
+    .mp-signal-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary-500);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+
+    .mp-signal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mp-signal-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      padding: 4px 0;
+    }
+
+    .mp-signal-label {
+      color: var(--secondary-400);
+      font-weight: 500;
+    }
+
+    .mp-signal-value {
+      color: var(--secondary-800);
+      font-weight: 500;
+    }
+
+    .mp-signal-value-em {
+      color: var(--primary-500);
+      font-style: italic;
+    }
+
+    .mp-signal-cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 8px 14px;
+      background: var(--primary-500);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 1px 2px 0 rgba(32,13,242,.15);
+    }
+
+    .mp-signal-cta:hover { background: var(--primary-600); }
+
+    /* Arrows between steps */
+    .mp-arrow {
+      color: var(--secondary-300);
+      padding: 6px 0;
+    }
+
+    /* Marketplace flow progressive build animation */
+    .mp-build-item {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s cubic-bezier(.22,1,.36,1), transform 0.5s cubic-bezier(.22,1,.36,1);
+    }
+
+    .mp-build-item.is-built {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .marketplace .container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .marketplace .container > .marketplace-visual {
+        order: 2;
+      }
+
+      .marketplace .container > .marketplace-content {
+        order: 1;
+      }
+
+      .marketplace-content h2 {
+        font-size: 28px;
+      }
+
+      .marketplace-stats {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+
+
+
+
+    /* -- Reduced motion -- */
+    @media (prefers-reduced-motion: reduce) {
+      [data-animate],
+      .dash-line .visitor-line,
+      .dash-line .visitor-avatar,
+      .dash-line .visitor-avatar-img,
+      .dash-line .visitor-tag,
+      .dash-expand,
+      .mp-build-item {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      .dash-expand {
+        max-height: none !important;
+        overflow: visible !important;
+      }
+
+      .marquee-track {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" enable-background="new 0 0 2000 2000" viewBox="0 0 2000 2000" height="32" class="nav-monogram"><path fill="#020219" d="M2000 1001.6c-.5 925.8-72.7 997.9-998.5 998.4h-3.1C72.6 1999.5.5 1927.3 0 1001.5v-3.1C.5 72.6 72.7.5 998.5 0h3.1c925.8.5 998 72.7 998.5 998.4-.1 1.1-.1 2.1-.1 3.2z"/><g fill="#FFF"><path d="M544.1 1390l74.1-114.3c78.4 57.1 171.1 90 252.4 90 78.4 0 125.5-32.8 125.5-84.3 0-58.5-68.4-78.5-156.8-101.4-159.7-42.9-260.9-87.1-260.9-221.4 0-137.1 112.6-231.4 278-231.4 99.8 0 201 35.7 280.9 88.6l-67 117.1c-69.9-44.3-146.9-72.9-213.9-72.9-65.6 0-116.9 30-116.9 81.4 0 48.6 45.6 61.4 158.3 95.7 124 34.3 259.5 75.7 259.5 228.6 0 142.8-118.3 234.3-289.4 234.3-114.2 0-235.4-40-323.8-110z"/><path d="M1455.9 500h-171.2v1000h171.2V500z"/></g></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" enable-background="new 0 0 283.5 72.3" viewBox="0 0 283.5 72.3" height="22" class="nav-wordmark"><path fill="#0F0D0A" d="M280.1 60.4c-1.1 1.1-3 1.8-5 1.8-2.7 0-4.9-2.4-4.9-5.8V30.8h11.3V21h-11.3V7.3h-11.4v50.6c0 8.4 5.8 14.4 14.1 14.4 3.9 0 8-1.6 10.8-4l-3.6-7.9z"/><path fill="#0F0D0A" d="M24 40.9c-7.7-2.3-10.8-3.2-10.8-6.5 0-3.5 3.5-5.5 8-5.5 4.6 0 9.8 1.9 14.5 4.9l4.6-8c-5.4-3.6-12.3-6-19.1-6-11.2.1-18.9 6.5-18.9 15.8 0 9.1 6.9 12.1 17.7 15 6 1.6 10.7 2.9 10.7 6.9 0 3.5-3.2 5.7-8.5 5.7-5.5 0-11.8-2.2-17.2-6.1l-5 7.8c6 4.8 14.3 7.5 22 7.5 11.6 0 19.7-6.2 19.7-15.9 0-10.4-9.2-13.2-17.7-15.6z"/><path fill="#0F0D0A" d="M200.1 13.5c3.7 0 6.6-3.2 6.6-6.8 0-3.6-2.9-6.7-6.6-6.7-3.8 0-6.8 3.1-6.8 6.7s3 6.8 6.8 6.8z"/><path fill="#0F0D0A" d="M206 21h-11.8v50.1H206V21z"/><path fill="#0F0D0A" d="M183.8 3.4H172v67.8h11.8V3.4z"/><path fill="#0F0D0A" d="M158.9 62.3c-2.7 0-4.9-2.4-4.9-5.8V30.8h11.3V21H154V7.3h-6.5c0 3.5-1.1 6.7-2.9 9.1-2 2.7-5 4.5-8.3 4.5h-1.6l-1.8 10h9.6V58c0 8.4 5.8 14.4 14.1 14.4 3.9 0 8-1.6 10.8-4l-3.4-8c-1.2 1.1-3.1 1.9-5.1 1.9z"/><path fill="#0F0D0A" d="M114.4 31.6V21h-11.8v50.1h11.8V46.9c0-9.5 5.5-16 15.1-16l1.9-9.9c-10.8-.1-13.8 4.1-17 10.6z"/><path fill="#0F0D0A" d="M70.8 19.9c-14.8 0-27 11.7-27 26.2s12.1 26.3 27 26.3c14.7 0 26.8-11.8 26.8-26.3S85.5 19.9 70.8 19.9zm0 42.4c-8.4 0-15.3-7.3-15.3-16.2 0-8.9 6.9-16.1 15.3-16.1 8.3 0 15.1 7.2 15.1 16.1 0 8.9-6.8 16.2-15.1 16.2z"/><path fill="#0F0D0A" d="M236.2 40.9c-7.7-2.3-10.8-3.2-10.8-6.5 0-3.5 3.5-5.5 8-5.5 4.6 0 9.8 1.9 14.5 4.9l4.6-8c-5.4-3.6-12.3-6-19.1-6-11.2 0-18.9 6.4-18.9 15.7 0 9.1 6.9 12.1 17.7 15 6 1.6 10.7 2.9 10.7 6.9 0 3.5-3.2 5.7-8.5 5.7-5.5 0-11.8-2.2-17.2-6.1l-5 7.8c6 4.8 14.3 7.5 22 7.5 11.6 0 19.7-6.2 19.7-15.9 0-10.3-9.2-13.1-17.7-15.5z"/></svg>
+        <span class="nav-badge">Radar</span>
+      </a>
+      <a href="#pricing" class="nav-cta">Start free trial &rarr;</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-pretitle">
+        <span class="hero-pretitle-dot"></span>
+        Built for agencies. Powered by Sortlist.
+      </div>
+      <h1>Turn ghost visitors into your <em>next discovery call</em><span class="dot">.</span></h1>
+      <p class="hero-sub">Identify high-intent companies on your website and across the Sortlist marketplace, find the right decision-makers, and start the conversation&mdash;all in one place.</p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn-primary">Stop losing leads &rarr;</a>
+      </div>
+      <p class="hero-small-text">Start revealing your ghost traffic today. No credit card required.</p>
+      <a href="#problem" class="hero-see-action">See it in action &darr;</a>
+    </div>
+  </section>
+
+  <!-- WAVE DIVIDER -->
+  <div class="hero-wave"></div>
+
+  <!-- SOCIAL PROOF BAR -->
+  <section class="social-proof-bar">
+    <div class="container">
+      <p>These companies visited agency websites last week. Their agencies didn't know.</p>
+      <div class="marquee-wrapper">
+        <div class="marquee-track">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+U3BvdGlmeTwvdGl0bGU+PHBhdGggZD0iTTEyIDBDNS40IDAgMCA1LjQgMCAxMnM1LjQgMTIgMTIgMTIgMTItNS40IDEyLTEyUzE4LjY2IDAgMTIgMHptNS41MjEgMTcuMzRjLS4yNC4zNTktLjY2LjQ4LTEuMDIxLjI0LTIuODItMS43NC02LjM2LTIuMTAxLTEwLjU2MS0xLjE0MS0uNDE4LjEyMi0uNzc5LS4xNzktLjg5OS0uNTM5LS4xMi0uNDIxLjE4LS43OC41NC0uOSA0LjU2LTEuMDIxIDguNTItLjYgMTEuNjQgMS4zMi40Mi4xOC40NzkuNjU5LjMwMSAxLjAyem0xLjQ0LTMuM2MtLjMwMS40Mi0uODQxLjYtMS4yNjIuMy0zLjIzOS0xLjk4LTguMTU5LTIuNTgtMTEuOTM5LTEuMzgtLjQ3OS4xMi0xLjAyLS4xMi0xLjE0LS42LS4xMi0uNDguMTItMS4wMjEuNi0xLjE0MUM5LjYgOS45IDE1IDEwLjU2MSAxOC43MiAxMi44NGMuMzYxLjE4MS41NC43OC4yNDEgMS4yem0uMTItMy4zNkMxNS4yNCA4LjQgOC44MiA4LjE2IDUuMTYgOS4zMDFjLS42LjE3OS0xLjItLjE4MS0xLjM4LS43MjEtLjE4LS42MDEuMTgtMS4yLjcyLTEuMzgxIDQuMjYtMS4yNiAxMS4yOC0xLjAyIDE1LjcyMSAxLjYyMS41MzkuMy43MTkgMS4wMi40MTkgMS41Ni0uMjk5LjQyMS0xLjAyLjU5OS0xLjU1OS4zeiIvPjwvc3ZnPg==" alt="Spotify">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Qk1XPC90aXRsZT48cGF0aCBkPSJNMTIgMEM1LjM3MyAwIDAgNS4zNzMgMCAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMlMxOC42MjcgMCAxMiAwem0wIC43OEMxOC4xOTYuNzggMjMuMjE5IDUuODAzIDIzLjIxOSAxMmMwIDYuMTk2LTUuMDIyIDExLjIxOS0xMS4yMTkgMTEuMjE5QzUuODAzIDIzLjIxOS43ODEgMTguMTk2Ljc4MSAxMlM1LjgwNC43OCAxMiAuNzh6bS0uNjc4LjYzYy0uMzMuMDE0LS42Ni4wNDItLjk5Mi4wNzhsLS4xMDcgMi45NDRhOS45NSA5Ljk1IDAgMCAxIC43MS0uMDk0bC4wNy0xLjk4OC0uMDEzLS4xMzcuMDQzLjEzLjY2NCAxLjQ4OWguNjA2bC42NjQtMS40ODguMDQtLjEzMS0uMDEuMTM3LjA3IDEuOTg4Yy4yMzIuMDIyLjQ3My4wNTQuNzEuMDk0bC0uMTA5LTIuOTQ0YTE0Ljc0NiAxNC43NDYgMCAwIDAtLjk5Mi0uMDc4bC0uNjUzIDEuNjI1LS4wMjMuMTItLjAyMy0uMTItLjY1NS0xLjYyNXptNi42OTYgMS44MjRsLTEuNTQzIDIuNDI4Yy4xOTUuMTUuNDUyLjM3MS42MTcuNTIybDEuNDUzLS43NTQuMDkyLS4wNjktLjA2OS4wOTQtLjc1MiAxLjQ1M2MuMTYzLjE3NS4zOTguNDU4LjUzLjYzbDIuNDMtMS41NDRhMTYuMTM1IDE2LjEzNSAwIDAgMC0uNDYtLjU2OEwxOC43NzcgNi40NGwtLjEwNS4wOTIuMDc4LS4xMTUuNjgtMS4zNTYtLjQ4LS40OC0xLjM1Ni42OC0uMTE1LjA3OC4wOTEtLjEwNiAxLjAxOC0xLjUzOWMtLjE4LS4xNTItLjM1MS0uMjkxLS41Ny0uNDZ6TTUuNSAzLjc4NWMtLjM2LjAzNy0uNjM4LjI4My0xLjM5MyAxLjEyNWExOC45NyAxOC45NyAwIDAgMC0uNzU3LjkxNGwyLjA3NCAxLjk2N2MuNjg3LS43Ni45NjYtMS4wNDIgMS41MDgtMS42MTMuMzgzLS40MDUuNi0uODcuMjE2LTEuMzE3LS4yMDgtLjI0Mi0uNTU4LS4yOTUtLjg1LS4xNzVsLS4wMjguMDEuMDEtLjAyNmEuNy43IDAgMCAwLS4yNDMtLjczNC43MjQuNzI0IDAgMCAwLS41MzctLjE1em0uMDA2LjYxNWMuMTM2LS4wMzcuMjc3LjA2LjMwOC4yLjAzMi4xNC0uMDU2LjI3Mi0uMTU0LjM4Mi0uMjIuMjUtMS4wMzEgMS4wOTgtMS4wMzEgMS4wOThsLS40MDItLjM4M2MuNDE3LS41MS44NjEtLjk3NCAxLjA2Mi0xLjE1OGEuNTUuNTUgMCAwIDEgLjIxNy0uMTM5ek0xMiA0Ljg4M2E3LjExNCA3LjExNCAwIDAgMC03LjA4IDYuMzg4di4wMDJhNy4xMjIgNy4xMjIgMCAwIDAgOC41MTYgNy42OTcgNy4xMTIgNy4xMTIgMCAwIDAgNS42OC02Ljk3QTcuMTIyIDcuMTIyIDAgMCAwIDEyIDQuODg1di0uMDAyem0tNS41MzcuMjQyYy4wNDcgMCAuMDk2LjAxMy4xNC4wNDMuMDg4LjA1OS4xMjguMTYuMTA2LjI2LS4wMjYuMTE5LS4xMjUuMjMxLS4yMDUuMzE4bC0xLjA0NSAxLjEyLS40Mi0uNHMuNzg3LS44MzIgMS4wNDUtMS4wOTljLjEwMi0uMTA2LjE2OC0uMTcuMjM4LS4yMDVhLjMzMS4zMzEgMCAwIDEgLjE0LS4wMzd6TTEyIDUuODE4QTYuMTc1IDYuMTc1IDAgMCAxIDE4LjE4MiAxMkgxMnY2LjE4MkE2LjE3NSA2LjE3NSAwIDAgMSA1LjgxOCAxMkgxMlY1LjgxOFoiLz48L3N2Zz4=" alt="BMW">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+WmFsYW5kbzwvdGl0bGU+PHBhdGggZD0iTTUuMjcgMjRjLS44OCAwLTEuMzYtLjItMS42Mi0uMzYtLjM2LS4yMS0xLjAyLS43NS0xLjYyLTIuMzNBMjcuMDYgMjcuMDYgMCAwMS40OSAxMmMuMDItMy42Ni41OS02Ljc2IDEuNTQtOS4zQzIuNjMgMS4xIDMuMjkuNTYgMy42NS4zNSAzLjkxLjIxIDQuMzkgMCA1LjI3IDBjLjMzIDAgLjcyLjAzIDEuMTguMWEyNi4xIDI2LjEgMCAwMTguNyAzLjNoLjAxYTI2LjQgMjYuNCAwIDAxNy4xNiA2LjAxYzEuMDYgMS4zMiAxLjE5IDIuMTcgMS4xOSAyLjU5IDAgLjQyLS4xMyAxLjI3LTEuMTkgMi41OWEyNi40IDI2LjQgMCAwMS03LjE2IDZoLS4wMWEyNi4wMyAyNi4wMyAwIDAxLTguNyAzLjNjLS40Ni4wOC0uODUuMTEtMS4xOC4xMXoiLz48L3N2Zz4=" alt="Zalando">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+U2Ftc3VuZzwvdGl0bGU+PHBhdGggZD0iTTE5LjgxNjYgMTAuMjgwOGwuMDQ1OSAyLjY5MzRoLS4wMjNsLS43NzkzLTIuNjkzNGgtMS4yODM3djMuMzkyNWguODQ4MWwtLjA0NTgtMi43ODVoLjAyM2wuODM2NiAyLjc4NWgxLjIyNjR2LTMuMzkyNXptLTE2LjE0OSAwbC0uNjQxOCAzLjQyN2guOTI4NGwuNDY5OS0zLjExNzVoLjAyMjlsLjQ1ODUgMy4xMTc0aC45MTY5bC0uNjMwNC0zLjQyNjl6bTUuMTgwNSAwbC0uNDI0IDIuNjEzMmgtLjAyM2wtLjQyNC0yLjYxMzJINi41Nzg4bC0uMDY4OCAzLjQyN2guODU5NmwuMDIzLTMuMDgzMmguMDExNGwuNTczIDMuMDgzMWguODcxMWwuNTczMS0zLjA4M2guMDIzbC4wMjI4IDMuMDgzaC44NTk2bC0uMDgwMi0zLjQyNjl6bS03LjI2NjQgMi40NTI3Yy4wMzQzLjA4MDIuMDIyOS4xOTQ5LjAxMTQuMjUyMi0uMDIyOS4xMTQ2LS4xMDMxLjIyOTItLjMzMjQuMjI5Mi0uMjE3NyAwLS4zNDM4LS4xMjYtLjM0MzgtLjMwOTV2LS4zMzIzSDB2LjI2MzZjMCAuNzY3OS42MDc0Ljk5NzEgMS4yNDkzLjk5NzEuNjE4OSAwIDEuMTM0Ni0uMjE3OCAxLjIxNDktLjc3OTQuMDQ1OC0uMjk4LjAxMTQtLjQ5MjggMC0uNTYxNi0uMTYwNS0uNzIyLTEuNDY3LS45MjgzLTEuNTU4OC0xLjMyOTUtLjAxMTQtLjA2ODgtLjAxMTQtLjEzNzUgMC0uMTgzNC4wMjMtLjExNDYuMTAzMi0uMjI5Mi4zMDk1LS4yMjkyLjIwNjMgMCAuMzIxLjEyNi4zMjEuMzA5NXYuMjA2M2guODU5NXYtLjI0MDdjMC0uNzQ1LS42NzYyLS44NTk2LTEuMTU3Ni0uODU5Ni0uNjA3NCAwLTEuMTExNy4yMDYzLTEuMjAzNC43NTY0LS4wMjMuMTQ5LS4wMzQ0LjI4NjYuMDExNC40NTg1LjEzNzYuNzEwNiAxLjM2NC45MTY5IDEuNTM1OCAxLjM1MjRtMTEuMTUyIDBjLjAzNDMuMDgwMy4wMjI4LjE4MzQuMDExNC4yNTIyLS4wMjMuMTE0Ni0uMTAzMi4yMjkyLS4zMzI0LjIyOTItLjIxNzggMC0uMzQzOC0uMTI2LS4zNDM4LS4zMDk1di0uMzMyM2gtLjkxN3YuMjYzNmMwIC43NTY0LjU5Ni45ODU3IDEuMjM3OS45ODU3LjYxODkgMCAxLjEyMzItLjIwNjMgMS4yMDM0LS43Nzk0LjA0NTktLjI5OC4wMTE1LS40ODE0IDAtLjU2MTYtLjEzNzUtLjcxMDYtMS40MzI3LS45Mjg0LTEuNTI0My0xLjMxOC0uMDExNS0uMDY4OC0uMDExNS0uMTM3NiAwLS4xODM1LjAyMjktLjExNDYuMTAzMS0uMjI5Mi4zMDk0LS4yMjkyLjE5NDggMCAuMzIxLjEyNi4zMjEuMzA5NXYuMjA2M2guODQ4di0uMjQwN2MwLS43NDUtLjY2NDctLjg1OTYtMS4xNDYtLjg1OTYtLjYwNzUgMC0xLjEwMDQuMTk0OC0xLjE5Mi43NTY0LS4wMjMuMTQ5LS4wMjMuMjg2Ni4wMTE0LjQ1ODUuMTM3Ni43MTA2IDEuMzQxLjkwNTQgMS41MTMgMS4zNTI0bTIuODg4Mi40NTg1Yy4yNDA3IDAgLjMwOTQtLjE2MDUuMzMyMy0uMjUyMi4wMTE1LS4wMzQzLjAxMTUtLjA5MTcuMDExNS0uMTI2di0yLjUzM2guODcxdjIuNDY0MmMwIC4wNjg4IDAgLjE5NDgtLjAxMTQuMjI5Mi0uMDU3My42NDE5LS41NjE2Ljg0ODItMS4xOTIuODQ4Mi0uNjMwMyAwLTEuMTM0Ni0uMjA2My0xLjE5Mi0uODQ4MiAwLS4wMzQ0LS4wMTE0LS4xNjA0LS4wMTE0LS4yMjkydi0yLjQ2NDJoLjg3MXYyLjUzM2MwIC4wNDU4IDAgLjA5MTYuMDExNS4xMjYgMCAuMDkxNy4wNjg4LjI1MjIuMzA5NS4yNTIybTcuMTUxOC0uMDM0NGMuMjUyMiAwIC4zMzI0LS4xNjA1LjM1NTMtLjI1MjIuMDExNS0uMDM0My4wMTE1LS4wOTE3LjAxMTUtLjEyNnYtLjQ5MjloLS4zNTUzdi0uNTA0M0gyNHYuOTE3YzAgLjA2ODcgMCAuMTE0NS0uMDExNS4yMjkyLS4wNTczLjYzMDMtLjU5Ni44NDgxLTEuMjAzNC44NDgxLS42MDc1IDAtMS4xNDYxLS4yMTc4LTEuMjAzNC0uODQ4MS0uMDExNS0uMTE0Ny0uMDExNS0uMTYwNS0uMDExNS0uMjI5M3YtMS40NDRjMC0uMDU3NC4wMTE1LS4xNzIuMDExNS0uMjI5My4wODAyLS42NDE5LjU5Ni0uODQ4MiAxLjIwMzQtLjg0ODJzMS4xMzQ3LjIwNjMgMS4yMDM0Ljg0ODJjLjAxMTUuMTAzMS4wMTE1LjIyOTIuMDExNS4yMjkydi4xMTQ2aC0uODU5NnYtLjE5NDhzMC0uMDgwMy0uMDExNS0uMTI2MWMtLjAxMTQtLjA4MDItLjA4MDItLjI1MjEtLjM0MzgtLjI1MjEtLjI1MjEgMC0uMzIxLjE2MDQtLjM0MzguMjUyMS0uMDExNS4wNDU4LS4wMTE1LjEwMzItLjAxMTUuMTYwNXYxLjU3MDJjMCAuMDQ1OCAwIC4wOTE2LjAxMTUuMTI2IDAgLjA5MTcuMDkxNy4yNTIyLjMzMjMuMjUyMiIvPjwvc3ZnPg==" alt="Samsung">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+QWRpZGFzPC90aXRsZT48cGF0aCBkPSJtMjQgMTkuNTM1LTguNjk3LTE1LjA3LTQuNjU5IDIuNjg3IDcuMTQ1IDEyLjM4M1ptLTguMjg3IDBMOS45NjkgOS41OSA1LjMxIDEyLjI3N2w0LjE5MiA3LjI1OFpNNC42NTggMTQuNzIzbDIuNzc2IDQuODEySDEuMjIzTDAgMTcuNDFaIi8+PC9zdmc+" alt="Adidas">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+SUtFQTwvdGl0bGU+PHBhdGggZD0iTTAgNy4ydjkuNmgyNFY3LjJIMHptMTIuMDAyIDkuMTJDNS4zMDggMTYuMzIuNDggMTQuMzYuNDggMTJzNC44MzEtNC4zMiAxMS41MjItNC4zMmM2LjY5IDAgMTEuNTE4IDEuOTYgMTEuNTE4IDQuMzJzLTQuODI0IDQuMzItMTEuNTE4IDQuMzJ6bS0uMjI1LTYuMDYyaDQuMTc2di45NjRjLS4xMDMtLjA0Ny0uMjAzLS4wNDctLjMwNi0uMDQ3aC0xLjc1OHYuNDZoMS42ODl2LjczMmgtMS42ODl2LjQ1N2gxLjc1OGMuMTAzIDAgLjIwMyAwIC4zMDYtLjA1di45NjdoLTQuMTc2Yy4wNTItLjEwMS4wNTItLjE5OC4wNTItLjI5OVYxMC41NmMwLS4xMDEgMC0uMTk4LS4wNTItLjMwMnptLTcuMDc2LjMwMnYyLjg4MWMwIC4xMDEgMCAuMTk4LjA1Mi4yOTlIMi40Yy4wNTItLjEwMS4wNTItLjE5OC4wNTItLjI5OVYxMC41NmMwLS4xMDEgMC0uMTk4LS4wNTItLjI5OWgyLjM1M2MtLjA1Mi4xMDEtLjA1Mi4xOTgtLjA1Mi4yOTl6bTYuNDQ3IDIuODgxYy4wNzYuMTA3LjE1OC4yMDguMjU1LjI5OUg4LjgwNWMwLS4xMDEtLjEtLjMwNi0uMjEtLjQ2Ny0uMTEtLjE2MS0uNzA1LTEuMDQ0LS43MDUtMS4wNDR2MS4yMTJjMCAuMTAxIDAgLjE5OC4wNTIuMjk5SDUuNzc4Yy4wNTItLjEwMS4wNTItLjE5OC4wNTItLjI5OVYxMC41NmMwLS4xMDEgMC0uMTk4LS4wNTItLjI5OWgyLjE2NGMtLjA1Mi4xMDEtLjA1Mi4xOTgtLjA1Mi4yOTl2MS4yNTlzLjY5MS0uODguODUtMS4wODVjLjEyLS4xNTQuMjY4LS4zNzMuMjY4LS40NzNoMi4yNTdjLS4xNTUuMTAxLS4zMjcuMjgyLS40NjguNDVsLS44MjYuOTg0czEuMDM5IDEuNTQ4IDEuMTc3IDEuNzQ2em0xMC41NDYtMy4wMDVhLjE3OC4xNzggMCAwIDAtLjE3NS0uMTc4aC0uMjF2LjU1MWguMDgzdi0uMTk1aC4xMmwuMTEuMTk1aC4wOTNsLS4xMi0uMjEyYS4xODQuMTg0IDAgMCAwIC4wOTktLjE2MXptLS4xODkuMTAxaC0uMTE0di0uMTkxaC4xMjRjLjA1NSAwIC4wOTMuMDQ3LjA5My4xMDEgMCAuMDUzLS4wNDguMDkzLS4xMDMuMDl6bS0uMDIxLS40NTdoLS4wMzFhLjQ0NC40NDQgMCAwIDAtLjQzNy40NTdjMCAuMDA3IDAgLjAxNy0uMDAzLjAyM2EuNDY2LjQ2NiAwIDAgMCAuNDgyLjQ0Ny40NjQuNDY0IDAgMCAwIC40NTgtLjQ3di0uMDE3YS40NTQuNDU0IDAgMCAwLS40NjktLjQ0em0wIC44MjNhLjM3Mi4zNzIgMCAwIDEtLjM3NS0uMzY2di0uMDI3YS4zNTcuMzU3IDAgMCAxIC4zNzUtLjMzOWMuMjA2IDAgLjM3NS4xNjUuMzc1LjM2NnMtLjE2OC4zNjYtLjM3NS4zNjZ6bS0uODc3LS4zMzljLS4wMzgtLjEwMS0uMDkzLS4xOTgtLjA2NS0uMjk5aC0zLjAxN2MuMDE0LjEwMS0uMDI0LjE5OC0uMDYyLjI5OWwtMS4wNyAyLjg4MWEuODUyLjg1MiAwIDAgMS0uMTYyLjI5OWgxLjc4NWMtLjAxNC0uMTAxLjAyNC0uMTk4LjA1OC0uMjk5LjAzNC0uMTAxLjA3Mi0uMTk4LjA3Mi0uMTk4bC4wMjEtLjA1NGgxLjMwNGwuMDIxLjA1Yy4wNDguMTE4LjA4My4xOTguMDgzLjE5OC4wNDEuMTAxLjA3OS4xOTguMDY5LjI5OWgyLjI2M2EuODM3LjgzNyAwIDAgMS0uMTY5LS4yOTkgNjkwLjI3NyA2OTAuMjc3IDAgMCAwLTEuMTMxLTIuODc3em0tMi4xNjcgMS44OTNjLjE1NS0uNDIuMjg5LS43NzIuMjk5LS44MDYuMDI4LS4wNzQuMDQ4LS4xNTEuMDYyLS4yMjguMDE3LjA3Ny4wNDEuMTU0LjA2OS4yMjhsLjMxNi44MDZoLS43NDZ6Ii8+PC9zdmc+" alt="IKEA">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TmlrZTwvdGl0bGU+PHBhdGggZD0iTTI0IDcuOEw2LjQ0MiAxNS4yNzZjLTEuNDU2LjYxNi0yLjY3OS45MjUtMy42NjguOTI1LTEuMTIgMC0xLjkzMy0uMzkyLTIuNDM3LTEuMTc3LS4zMTctLjUwNC0uNDEtMS4xNDMtLjI4LTEuOTE4LjEzLS43NzUuNDc2LTEuNiAxLjAzNi0yLjQ3OC40NjctLjcxIDEuMjMyLTEuNjQzIDIuMjk3LTIuOGE2LjEyMiA2LjEyMiAwIDAwLS43ODQgMS44NDhjLS4yOCAxLjE5NS0uMDI4IDIuMDcyLjc1NiAyLjYzMi4zNzMuMjYxLjg4Ni4zOTIgMS41NC4zOTIuNTIyIDAgMS4xMS0uMDg0IDEuNzY0LS4yNTJMMjQgNy44eiIvPjwvc3ZnPg==" alt="Nike">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+U2llbWVuczwvdGl0bGU+PHBhdGggZD0iTTEuNDc4IDEwLjAxNmMuMjQgMCAuNTkuMDQ2IDEuMDQ2LjE0di43MjZhMi40NjUgMi40NjUgMCAwIDAtLjk0Ni0uMjEzYy0uNDEgMC0uNjE1LjExOC0uNjE1LjM1NCAwIC4wODguMDQxLjE2LjEyNC4yMTYuMDY5LjA0NS4yNTguMTQuNTY4LjI4Ni40NDYuMjA4Ljc0My4zODguODkuNTQxLjE3Ni4xODIuMjY0LjQxNy4yNjQuNzA1IDAgLjQxNS0uMTcyLjczLS41MTYuOTQ5LS4yNzkuMTc2LS42NC4yNjQtMS4wODUuMjY0LS4zNzUgMC0uNzUzLS4wNDYtMS4xMzMtLjEzOXYtLjc1NWMuNDEuMTM1Ljc3NC4yMDMgMS4wOS4yMDMuNDM3IDAgLjY1NS0uMTIxLjY1NS0uMzYyYS4zMDIuMzAyIDAgMCAwLS4wOTUtLjIyN2MtLjA2NS0uMDY1LS4yMzItLjE1NS0uNS0uMjctLjQ4MS0uMjA4LS43OTUtLjM4NC0uOTQtLjUzYS45OTkuOTk5IDAgMCAxLS4yODQtLjczYzAtLjM3Ny4xMzctLjY2Ni40MTMtLjg2NC4yNzItLjE5Ni42MjYtLjI5NCAxLjA2NC0uMjk0em0yMS4xOSAwYy4yNDYgMCAuNTY1LjA0Ljk1Ni4xMjNsLjA5LjAxNnYuNzI3YTIuNDcxIDIuNDcxIDAgMCAwLS45NDgtLjIxM2MtLjQwOSAwLS42MTIuMTE4LS42MTIuMzU0IDAgLjA4OC4wNC4xNi4xMjMuMjE2LjA2Ni4wNDMuMjU2LjEzOS41Ny4yODYuNDQzLjIwOC43NC4zODguODg5LjU0MS4xNzYuMTgyLjI2NC40MTcuMjY0LjcwNSAwIC40MTUtLjE3Mi43My0uNTE0Ljk0OS0uMjguMTc2LS42NDMuMjY0LTEuMDg3LjI2NC0uMzc2IDAtLjc1NC0uMDQ2LTEuMTM0LS4xMzl2LS43NTVjLjQwNy4xMzUuNzcuMjAzIDEuMDkuMjAzLjQzNyAwIC42NTUtLjEyMS42NTUtLjM2MiAwLS4wOS0uMDMtLjE2Ni0uMDkyLS4yMjctLjA2Ni0uMDY1LS4yMzMtLjE1NS0uNTAzLS4yNy0uNDgtLjIwNi0uNzkzLS4zODItLjk0LS41M2EuOTk3Ljk5NyAwIDAgMS0uMjg0LS43MzJjMC0uMzc2LjEzNy0uNjY0LjQxMy0uODYyLjI3Mi0uMTk2LjYyNy0uMjk0IDEuMDY0LS4yOTR6bS0xMi42NzQuMDY2bC45MiAyLjQ0NC45NDItMi40NDRoMS4yNTd2My44MjVoLS45Njh2LTIuNzA4bC0xLjA3MiAyLjc0N2gtLjYzMmwtMS4wNTItMi43NDd2Mi43MDhIOC42N3YtMy44MjV6bS01LjU4NyAwdjMuODI1SDMuMzg2di0zLjgyNXptMy41NTQgMHYuNjkySDYuMzI3di44NjRINy43NXYuNjNINi4zMjd2LjkwOGgxLjY3N3YuNzNoLTIuNjZ2LTMuODI0em04LjcwNyAwdi42OTJoLTEuNjM0di44NjRoMS40MjJ2LjYzaC0xLjQyMnYuOTA4aDEuNjc3di43M0gxNC4wNXYtMy44MjR6bTEuODk4IDBsMS4yNTUgMi41NnYtMi41NmguNzE5djMuODI1aC0xLjE1bC0xLjI4OC0yLjU5NXYyLjU5NWgtLjcydi0zLjgyNXoiLz48L3N2Zz4=" alt="Siemens">
+          <!-- duplicated for seamless loop -->
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+U3BvdGlmeTwvdGl0bGU+PHBhdGggZD0iTTEyIDBDNS40IDAgMCA1LjQgMCAxMnM1LjQgMTIgMTIgMTIgMTItNS40IDEyLTEyUzE4LjY2IDAgMTIgMHptNS41MjEgMTcuMzRjLS4yNC4zNTktLjY2LjQ4LTEuMDIxLjI0LTIuODItMS43NC02LjM2LTIuMTAxLTEwLjU2MS0xLjE0MS0uNDE4LjEyMi0uNzc5LS4xNzktLjg5OS0uNTM5LS4xMi0uNDIxLjE4LS43OC41NC0uOSA0LjU2LTEuMDIxIDguNTItLjYgMTEuNjQgMS4zMi40Mi4xOC40NzkuNjU5LjMwMSAxLjAyem0xLjQ0LTMuM2MtLjMwMS40Mi0uODQxLjYtMS4yNjIuMy0zLjIzOS0xLjk4LTguMTU5LTIuNTgtMTEuOTM5LTEuMzgtLjQ3OS4xMi0xLjAyLS4xMi0xLjE0LS42LS4xMi0uNDguMTItMS4wMjEuNi0xLjE0MUM5LjYgOS45IDE1IDEwLjU2MSAxOC43MiAxMi44NGMuMzYxLjE4MS41NC43OC4yNDEgMS4yem0uMTItMy4zNkMxNS4yNCA4LjQgOC44MiA4LjE2IDUuMTYgOS4zMDFjLS42LjE3OS0xLjItLjE4MS0xLjM4LS43MjEtLjE4LS42MDEuMTgtMS4yLjcyLTEuMzgxIDQuMjYtMS4yNiAxMS4yOC0xLjAyIDE1LjcyMSAxLjYyMS41MzkuMy43MTkgMS4wMi40MTkgMS41Ni0uMjk5LjQyMS0xLjAyLjU5OS0xLjU1OS4zeiIvPjwvc3ZnPg==" alt="Spotify">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Qk1XPC90aXRsZT48cGF0aCBkPSJNMTIgMEM1LjM3MyAwIDAgNS4zNzMgMCAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMlMxOC42MjcgMCAxMiAwem0wIC43OEMxOC4xOTYuNzggMjMuMjE5IDUuODAzIDIzLjIxOSAxMmMwIDYuMTk2LTUuMDIyIDExLjIxOS0xMS4yMTkgMTEuMjE5QzUuODAzIDIzLjIxOS43ODEgMTguMTk2Ljc4MSAxMlM1LjgwNC43OCAxMiAuNzh6bS0uNjc4LjYzYy0uMzMuMDE0LS42Ni4wNDItLjk5Mi4wNzhsLS4xMDcgMi45NDRhOS45NSA5Ljk1IDAgMCAxIC43MS0uMDk0bC4wNy0xLjk4OC0uMDEzLS4xMzcuMDQzLjEzLjY2NCAxLjQ4OWguNjA2bC42NjQtMS40ODguMDQtLjEzMS0uMDEuMTM3LjA3IDEuOTg4Yy4yMzIuMDIyLjQ3My4wNTQuNzEuMDk0bC0uMTA5LTIuOTQ0YTE0Ljc0NiAxNC43NDYgMCAwIDAtLjk5Mi0uMDc4bC0uNjUzIDEuNjI1LS4wMjMuMTItLjAyMy0uMTItLjY1NS0xLjYyNXptNi42OTYgMS44MjRsLTEuNTQzIDIuNDI4Yy4xOTUuMTUuNDUyLjM3MS42MTcuNTIybDEuNDUzLS43NTQuMDkyLS4wNjktLjA2OS4wOTQtLjc1MiAxLjQ1M2MuMTYzLjE3NS4zOTguNDU4LjUzLjYzbDIuNDMtMS41NDRhMTYuMTM1IDE2LjEzNSAwIDAgMC0uNDYtLjU2OEwxOC43NzcgNi40NGwtLjEwNS4wOTIuMDc4LS4xMTUuNjgtMS4zNTYtLjQ4LS40OC0xLjM1Ni42OC0uMTE1LjA3OC4wOTEtLjEwNiAxLjAxOC0xLjUzOWMtLjE4LS4xNTItLjM1MS0uMjkxLS41Ny0uNDZ6TTUuNSAzLjc4NWMtLjM2LjAzNy0uNjM4LjI4My0xLjM5MyAxLjEyNWExOC45NyAxOC45NyAwIDAgMC0uNzU3LjkxNGwyLjA3NCAxLjk2N2MuNjg3LS43Ni45NjYtMS4wNDIgMS41MDgtMS42MTMuMzgzLS40MDUuNi0uODcuMjE2LTEuMzE3LS4yMDgtLjI0Mi0uNTU4LS4yOTUtLjg1LS4xNzVsLS4wMjguMDEuMDEtLjAyNmEuNy43IDAgMCAwLS4yNDMtLjczNC43MjQuNzI0IDAgMCAwLS41MzctLjE1em0uMDA2LjYxNWMuMTM2LS4wMzcuMjc3LjA2LjMwOC4yLjAzMi4xNC0uMDU2LjI3Mi0uMTU0LjM4Mi0uMjIuMjUtMS4wMzEgMS4wOTgtMS4wMzEgMS4wOThsLS40MDItLjM4M2MuNDE3LS41MS44NjEtLjk3NCAxLjA2Mi0xLjE1OGEuNTUuNTUgMCAwIDEgLjIxNy0uMTM5ek0xMiA0Ljg4M2E3LjExNCA3LjExNCAwIDAgMC03LjA4IDYuMzg4di4wMDJhNy4xMjIgNy4xMjIgMCAwIDAgOC41MTYgNy42OTcgNy4xMTIgNy4xMTIgMCAwIDAgNS42OC02Ljk3QTcuMTIyIDcuMTIyIDAgMCAwIDEyIDQuODg1di0uMDAyem0tNS41MzcuMjQyYy4wNDcgMCAuMDk2LjAxMy4xNC4wNDMuMDg4LjA1OS4xMjguMTYuMTA2LjI2LS4wMjYuMTE5LS4xMjUuMjMxLS4yMDUuMzE4bC0xLjA0NSAxLjEyLS40Mi0uNHMuNzg3LS44MzIgMS4wNDUtMS4wOTljLjEwMi0uMTA2LjE2OC0uMTcuMjM4LS4yMDVhLjMzMS4zMzEgMCAwIDEgLjE0LS4wMzd6TTEyIDUuODE4QTYuMTc1IDYuMTc1IDAgMCAxIDE4LjE4MiAxMkgxMnY2LjE4MkE2LjE3NSA2LjE3NSAwIDAgMSA1LjgxOCAxMkgxMlY1LjgxOFoiLz48L3N2Zz4=" alt="BMW">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+WmFsYW5kbzwvdGl0bGU+PHBhdGggZD0iTTUuMjcgMjRjLS44OCAwLTEuMzYtLjItMS42Mi0uMzYtLjM2LS4yMS0xLjAyLS43NS0xLjYyLTIuMzNBMjcuMDYgMjcuMDYgMCAwMS40OSAxMmMuMDItMy42Ni41OS02Ljc2IDEuNTQtOS4zQzIuNjMgMS4xIDMuMjkuNTYgMy42NS4zNSAzLjkxLjIxIDQuMzkgMCA1LjI3IDBjLjMzIDAgLjcyLjAzIDEuMTguMWEyNi4xIDI2LjEgMCAwMTguNyAzLjNoLjAxYTI2LjQgMjYuNCAwIDAxNy4xNiA2LjAxYzEuMDYgMS4zMiAxLjE5IDIuMTcgMS4xOSAyLjU5IDAgLjQyLS4xMyAxLjI3LTEuMTkgMi41OWEyNi40IDI2LjQgMCAwMS03LjE2IDZoLS4wMWEyNi4wMyAyNi4wMyAwIDAxLTguNyAzLjNjLS40Ni4wOC0uODUuMTEtMS4xOC4xMXoiLz48L3N2Zz4=" alt="Zalando">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+U2Ftc3VuZzwvdGl0bGU+PHBhdGggZD0iTTE5LjgxNjYgMTAuMjgwOGwuMDQ1OSAyLjY5MzRoLS4wMjNsLS43NzkzLTIuNjkzNGgtMS4yODM3djMuMzkyNWguODQ4MWwtLjA0NTgtMi43ODVoLjAyM2wuODM2NiAyLjc4NWgxLjIyNjR2LTMuMzkyNXptLTE2LjE0OSAwbC0uNjQxOCAzLjQyN2guOTI4NGwuNDY5OS0zLjExNzVoLjAyMjlsLjQ1ODUgMy4xMTc0aC45MTY5bC0uNjMwNC0zLjQyNjl6bTUuMTgwNSAwbC0uNDI0IDIuNjEzMmgtLjAyM2wtLjQyNC0yLjYxMzJINi41Nzg4bC0uMDY4OCAzLjQyN2guODU5NmwuMDIzLTMuMDgzMmguMDExNGwuNTczIDMuMDgzMWguODcxMWwuNTczMS0zLjA4M2guMDIzbC4wMjI4IDMuMDgzaC44NTk2bC0uMDgwMi0zLjQyNjl6bS03LjI2NjQgMi40NTI3Yy4wMzQzLjA4MDIuMDIyOS4xOTQ5LjAxMTQuMjUyMi0uMDIyOS4xMTQ2LS4xMDMxLjIyOTItLjMzMjQuMjI5Mi0uMjE3NyAwLS4zNDM4LS4xMjYtLjM0MzgtLjMwOTV2LS4zMzIzSDB2LjI2MzZjMCAuNzY3OS42MDc0Ljk5NzEgMS4yNDkzLjk5NzEuNjE4OSAwIDEuMTM0Ni0uMjE3OCAxLjIxNDktLjc3OTQuMDQ1OC0uMjk4LjAxMTQtLjQ5MjggMC0uNTYxNi0uMTYwNS0uNzIyLTEuNDY3LS45MjgzLTEuNTU4OC0xLjMyOTUtLjAxMTQtLjA2ODgtLjAxMTQtLjEzNzUgMC0uMTgzNC4wMjMtLjExNDYuMTAzMi0uMjI5Mi4zMDk1LS4yMjkyLjIwNjMgMCAuMzIxLjEyNi4zMjEuMzA5NXYuMjA2M2guODU5NXYtLjI0MDdjMC0uNzQ1LS42NzYyLS44NTk2LTEuMTU3Ni0uODU5Ni0uNjA3NCAwLTEuMTExNy4yMDYzLTEuMjAzNC43NTY0LS4wMjMuMTQ5LS4wMzQ0LjI4NjYuMDExNC40NTg1LjEzNzYuNzEwNiAxLjM2NC45MTY5IDEuNTM1OCAxLjM1MjRtMTEuMTUyIDBjLjAzNDMuMDgwMy4wMjI4LjE4MzQuMDExNC4yNTIyLS4wMjMuMTE0Ni0uMTAzMi4yMjkyLS4zMzI0LjIyOTItLjIxNzggMC0uMzQzOC0uMTI2LS4zNDM4LS4zMDk1di0uMzMyM2gtLjkxN3YuMjYzNmMwIC43NTY0LjU5Ni45ODU3IDEuMjM3OS45ODU3LjYxODkgMCAxLjEyMzItLjIwNjMgMS4yMDM0LS43Nzk0LjA0NTktLjI5OC4wMTE1LS40ODE0IDAtLjU2MTYtLjEzNzUtLjcxMDYtMS40MzI3LS45Mjg0LTEuNTI0My0xLjMxOC0uMDExNS0uMDY4OC0uMDExNS0uMTM3NiAwLS4xODM1LjAyMjktLjExNDYuMTAzMS0uMjI5Mi4zMDk0LS4yMjkyLjE5NDggMCAuMzIxLjEyNi4zMjEuMzA5NXYuMjA2M2guODQ4di0uMjQwN2MwLS43NDUtLjY2NDctLjg1OTYtMS4xNDYtLjg1OTYtLjYwNzUgMC0xLjEwMDQuMTk0OC0xLjE5Mi43NTY0LS4wMjMuMTQ5LS4wMjMuMjg2Ni4wMTE0LjQ1ODUuMTM3Ni43MTA2IDEuMzQxLjkwNTQgMS41MTMgMS4zNTI0bTIuODg4Mi40NTg1Yy4yNDA3IDAgLjMwOTQtLjE2MDUuMzMyMy0uMjUyMi4wMTE1LS4wMzQzLjAxMTUtLjA5MTcuMDExNS0uMTI2di0yLjUzM2guODcxdjIuNDY0MmMwIC4wNjg4IDAgLjE5NDgtLjAxMTQuMjI5Mi0uMDU3My42NDE5LS41NjE2Ljg0ODItMS4xOTIuODQ4Mi0uNjMwMyAwLTEuMTM0Ni0uMjA2My0xLjE5Mi0uODQ4MiAwLS4wMzQ0LS4wMTE0LS4xNjA0LS4wMTE0LS4yMjkydi0yLjQ2NDJoLjg3MXYyLjUzM2MwIC4wNDU4IDAgLjA5MTYuMDExNS4xMjYgMCAuMDkxNy4wNjg4LjI1MjIuMzA5NS4yNTIybTcuMTUxOC0uMDM0NGMuMjUyMiAwIC4zMzI0LS4xNjA1LjM1NTMtLjI1MjIuMDExNS0uMDM0My4wMTE1LS4wOTE3LjAxMTUtLjEyNnYtLjQ5MjloLS4zNTUzdi0uNTA0M0gyNHYuOTE3YzAgLjA2ODcgMCAuMTE0NS0uMDExNS4yMjkyLS4wNTczLjYzMDMtLjU5Ni44NDgxLTEuMjAzNC44NDgxLS42MDc1IDAtMS4xNDYxLS4yMTc4LTEuMjAzNC0uODQ4MS0uMDExNS0uMTE0Ny0uMDExNS0uMTYwNS0uMDExNS0uMjI5M3YtMS40NDRjMC0uMDU3NC4wMTE1LS4xNzIuMDExNS0uMjI5My4wODAyLS42NDE5LjU5Ni0uODQ4MiAxLjIwMzQtLjg0ODJzMS4xMzQ3LjIwNjMgMS4yMDM0Ljg0ODJjLjAxMTUuMTAzMS4wMTE1LjIyOTIuMDExNS4yMjkydi4xMTQ2aC0uODU5NnYtLjE5NDhzMC0uMDgwMy0uMDExNS0uMTI2MWMtLjAxMTQtLjA4MDItLjA4MDItLjI1MjEtLjM0MzgtLjI1MjEtLjI1MjEgMC0uMzIxLjE2MDQtLjM0MzguMjUyMS0uMDExNS4wNDU4LS4wMTE1LjEwMzItLjAxMTUuMTYwNXYxLjU3MDJjMCAuMDQ1OCAwIC4wOTE2LjAxMTUuMTI2IDAgLjA5MTcuMDkxNy4yNTIyLjMzMjMuMjUyMiIvPjwvc3ZnPg==" alt="Samsung">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+QWRpZGFzPC90aXRsZT48cGF0aCBkPSJtMjQgMTkuNTM1LTguNjk3LTE1LjA3LTQuNjU5IDIuNjg3IDcuMTQ1IDEyLjM4M1ptLTguMjg3IDBMOS45NjkgOS41OSA1LjMxIDEyLjI3N2w0LjE5MiA3LjI1OFpNNC42NTggMTQuNzIzbDIuNzc2IDQuODEySDEuMjIzTDAgMTcuNDFaIi8+PC9zdmc+" alt="Adidas">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+SUtFQTwvdGl0bGU+PHBhdGggZD0iTTAgNy4ydjkuNmgyNFY3LjJIMHptMTIuMDAyIDkuMTJDNS4zMDggMTYuMzIuNDggMTQuMzYuNDggMTJzNC44MzEtNC4zMiAxMS41MjItNC4zMmM2LjY5IDAgMTEuNTE4IDEuOTYgMTEuNTE4IDQuMzJzLTQuODI0IDQuMzItMTEuNTE4IDQuMzJ6bS0uMjI1LTYuMDYyaDQuMTc2di45NjRjLS4xMDMtLjA0Ny0uMjAzLS4wNDctLjMwNi0uMDQ3aC0xLjc1OHYuNDZoMS42ODl2LjczMmgtMS42ODl2LjQ1N2gxLjc1OGMuMTAzIDAgLjIwMyAwIC4zMDYtLjA1di45NjdoLTQuMTc2Yy4wNTItLjEwMS4wNTItLjE5OC4wNTItLjI5OVYxMC41NmMwLS4xMDEgMC0uMTk4LS4wNTItLjMwMnptLTcuMDc2LjMwMnYyLjg4MWMwIC4xMDEgMCAuMTk4LjA1Mi4yOTlIMi40Yy4wNTItLjEwMS4wNTItLjE5OC4wNTItLjI5OVYxMC41NmMwLS4xMDEgMC0uMTk4LS4wNTItLjI5OWgyLjM1M2MtLjA1Mi4xMDEtLjA1Mi4xOTgtLjA1Mi4yOTl6bTYuNDQ3IDIuODgxYy4wNzYuMTA3LjE1OC4yMDguMjU1LjI5OUg4LjgwNWMwLS4xMDEtLjEtLjMwNi0uMjEtLjQ2Ny0uMTEtLjE2MS0uNzA1LTEuMDQ0LS43MDUtMS4wNDR2MS4yMTJjMCAuMTAxIDAgLjE5OC4wNTIuMjk5SDUuNzc4Yy4wNTItLjEwMS4wNTItLjE5OC4wNTItLjI5OVYxMC41NmMwLS4xMDEgMC0uMTk4LS4wNTItLjI5OWgyLjE2NGMtLjA1Mi4xMDEtLjA1Mi4xOTgtLjA1Mi4yOTl2MS4yNTlzLjY5MS0uODguODUtMS4wODVjLjEyLS4xNTQuMjY4LS4zNzMuMjY4LS40NzNoMi4yNTdjLS4xNTUuMTAxLS4zMjcuMjgyLS40NjguNDVsLS44MjYuOTg0czEuMDM5IDEuNTQ4IDEuMTc3IDEuNzQ2em0xMC41NDYtMy4wMDVhLjE3OC4xNzggMCAwIDAtLjE3NS0uMTc4aC0uMjF2LjU1MWguMDgzdi0uMTk1aC4xMmwuMTEuMTk1aC4wOTNsLS4xMi0uMjEyYS4xODQuMTg0IDAgMCAwIC4wOTktLjE2MXptLS4xODkuMTAxaC0uMTE0di0uMTkxaC4xMjRjLjA1NSAwIC4wOTMuMDQ3LjA5My4xMDEgMCAuMDUzLS4wNDguMDkzLS4xMDMuMDl6bS0uMDIxLS40NTdoLS4wMzFhLjQ0NC40NDQgMCAwIDAtLjQzNy40NTdjMCAuMDA3IDAgLjAxNy0uMDAzLjAyM2EuNDY2LjQ2NiAwIDAgMCAuNDgyLjQ0Ny40NjQuNDY0IDAgMCAwIC40NTgtLjQ3di0uMDE3YS40NTQuNDU0IDAgMCAwLS40NjktLjQ0em0wIC44MjNhLjM3Mi4zNzIgMCAwIDEtLjM3NS0uMzY2di0uMDI3YS4zNTcuMzU3IDAgMCAxIC4zNzUtLjMzOWMuMjA2IDAgLjM3NS4xNjUuMzc1LjM2NnMtLjE2OC4zNjYtLjM3NS4zNjZ6bS0uODc3LS4zMzljLS4wMzgtLjEwMS0uMDkzLS4xOTgtLjA2NS0uMjk5aC0zLjAxN2MuMDE0LjEwMS0uMDI0LjE5OC0uMDYyLjI5OWwtMS4wNyAyLjg4MWEuODUyLjg1MiAwIDAgMS0uMTYyLjI5OWgxLjc4NWMtLjAxNC0uMTAxLjAyNC0uMTk4LjA1OC0uMjk5LjAzNC0uMTAxLjA3Mi0uMTk4LjA3Mi0uMTk4bC4wMjEtLjA1NGgxLjMwNGwuMDIxLjA1Yy4wNDguMTE4LjA4My4xOTguMDgzLjE5OC4wNDEuMTAxLjA3OS4xOTguMDY5LjI5OWgyLjI2M2EuODM3LjgzNyAwIDAgMS0uMTY5LS4yOTkgNjkwLjI3NyA2OTAuMjc3IDAgMCAwLTEuMTMxLTIuODc3em0tMi4xNjcgMS44OTNjLjE1NS0uNDIuMjg5LS43NzIuMjk5LS44MDYuMDI4LS4wNzQuMDQ4LS4xNTEuMDYyLS4yMjguMDE3LjA3Ny4wNDEuMTU0LjA2OS4yMjhsLjMxNi44MDZoLS43NDZ6Ii8+PC9zdmc+" alt="IKEA">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+TmlrZTwvdGl0bGU+PHBhdGggZD0iTTI0IDcuOEw2LjQ0MiAxNS4yNzZjLTEuNDU2LjYxNi0yLjY3OS45MjUtMy42NjguOTI1LTEuMTIgMC0xLjkzMy0uMzkyLTIuNDM3LTEuMTc3LS4zMTctLjUwNC0uNDEtMS4xNDMtLjI4LTEuOTE4LjEzLS43NzUuNDc2LTEuNiAxLjAzNi0yLjQ3OC40NjctLjcxIDEuMjMyLTEuNjQzIDIuMjk3LTIuOGE2LjEyMiA2LjEyMiAwIDAwLS43ODQgMS44NDhjLS4yOCAxLjE5NS0uMDI4IDIuMDcyLjc1NiAyLjYzMi4zNzMuMjYxLjg4Ni4zOTIgMS41NC4zOTIuNTIyIDAgMS4xMS0uMDg0IDEuNzY0LS4yNTJMMjQgNy44eiIvPjwvc3ZnPg==" alt="Nike">
+          <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjNDYzRjM5IiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+U2llbWVuczwvdGl0bGU+PHBhdGggZD0iTTEuNDc4IDEwLjAxNmMuMjQgMCAuNTkuMDQ2IDEuMDQ2LjE0di43MjZhMi40NjUgMi40NjUgMCAwIDAtLjk0Ni0uMjEzYy0uNDEgMC0uNjE1LjExOC0uNjE1LjM1NCAwIC4wODguMDQxLjE2LjEyNC4yMTYuMDY5LjA0NS4yNTguMTQuNTY4LjI4Ni40NDYuMjA4Ljc0My4zODguODkuNTQxLjE3Ni4xODIuMjY0LjQxNy4yNjQuNzA1IDAgLjQxNS0uMTcyLjczLS41MTYuOTQ5LS4yNzkuMTc2LS42NC4yNjQtMS4wODUuMjY0LS4zNzUgMC0uNzUzLS4wNDYtMS4xMzMtLjEzOXYtLjc1NWMuNDEuMTM1Ljc3NC4yMDMgMS4wOS4yMDMuNDM3IDAgLjY1NS0uMTIxLjY1NS0uMzYyYS4zMDIuMzAyIDAgMCAwLS4wOTUtLjIyN2MtLjA2NS0uMDY1LS4yMzItLjE1NS0uNS0uMjctLjQ4MS0uMjA4LS43OTUtLjM4NC0uOTQtLjUzYS45OTkuOTk5IDAgMCAxLS4yODQtLjczYzAtLjM3Ny4xMzctLjY2Ni40MTMtLjg2NC4yNzItLjE5Ni42MjYtLjI5NCAxLjA2NC0uMjk0em0yMS4xOSAwYy4yNDYgMCAuNTY1LjA0Ljk1Ni4xMjNsLjA5LjAxNnYuNzI3YTIuNDcxIDIuNDcxIDAgMCAwLS45NDgtLjIxM2MtLjQwOSAwLS42MTIuMTE4LS42MTIuMzU0IDAgLjA4OC4wNC4xNi4xMjMuMjE2LjA2Ni4wNDMuMjU2LjEzOS41Ny4yODYuNDQzLjIwOC43NC4zODguODg5LjU0MS4xNzYuMTgyLjI2NC40MTcuMjY0LjcwNSAwIC40MTUtLjE3Mi43My0uNTE0Ljk0OS0uMjguMTc2LS42NDMuMjY0LTEuMDg3LjI2NC0uMzc2IDAtLjc1NC0uMDQ2LTEuMTM0LS4xMzl2LS43NTVjLjQwNy4xMzUuNzcuMjAzIDEuMDkuMjAzLjQzNyAwIC42NTUtLjEyMS42NTUtLjM2MiAwLS4wOS0uMDMtLjE2Ni0uMDkyLS4yMjctLjA2Ni0uMDY1LS4yMzMtLjE1NS0uNTAzLS4yNy0uNDgtLjIwNi0uNzkzLS4zODItLjk0LS41M2EuOTk3Ljk5NyAwIDAgMS0uMjg0LS43MzJjMC0uMzc2LjEzNy0uNjY0LjQxMy0uODYyLjI3Mi0uMTk2LjYyNy0uMjk0IDEuMDY0LS4yOTR6bS0xMi42NzQuMDY2bC45MiAyLjQ0NC45NDItMi40NDRoMS4yNTd2My44MjVoLS45Njh2LTIuNzA4bC0xLjA3MiAyLjc0N2gtLjYzMmwtMS4wNTItMi43NDd2Mi43MDhIOC42N3YtMy44MjV6bS01LjU4NyAwdjMuODI1SDMuMzg2di0zLjgyNXptMy41NTQgMHYuNjkySDYuMzI3di44NjRINy43NXYuNjNINi4zMjd2LjkwOGgxLjY3N3YuNzNoLTIuNjZ2LTMuODI0em04LjcwNyAwdi42OTJoLTEuNjM0di44NjRoMS40MjJ2LjYzaC0xLjQyMnYuOTA4aDEuNjc3di43M0gxNC4wNXYtMy44MjR6bTEuODk4IDBsMS4yNTUgMi41NnYtMi41NmguNzE5djMuODI1aC0xLjE1bC0xLjI4OC0yLjU5NXYyLjU5NWgtLjcydi0zLjgyNXoiLz48L3N2Zz4=" alt="Siemens">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="problem-content">
+        <div class="module-badge badge-identify">
+          <svg class="module-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Identification
+        </div>
+        <h2>Your next client already <em>visited your website</em>. You just don't know it<span class="dot">.</span></h2>
+        <p>Every day, potential clients browse your portfolio, read your case studies, and check your pricing. Then they leave &mdash; without ever making contact. Radar identifies the companies behind those anonymous visits in real-time.</p>
+        <div class="problem-stat">
+          <span class="problem-stat-number">98%</span>
+          <span class="problem-stat-text">of website visitors leave without ever filling out a form or making contact. That's revenue walking out the door.</span>
+        </div>
+      </div>
+      <div class="problem-visual" data-animate id="dashboard-visual">
+        <div class="pv-header">
+          <span class="pv-header-title">Radar &mdash; Live visitors</span>
+          <span class="pv-header-live"><span class="pv-header-live-dot"></span> Live</span>
+        </div>
+
+        <!-- LINE 1: Ghost → Spotify → expand contact panel -->
+        <div class="visitor-line-wrap dash-line" data-reveal="true" data-expand="true" data-logo="https://cdn.simpleicons.org/spotify/1DB954" data-name="Spotify" data-detail="7 pages &bull; /services">
+          <div class="visitor-line ghost">
+            <span class="visitor-avatar ghost-av">?</span>
+            <img class="visitor-avatar-img" style="display:none" src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify">
+            <span class="visitor-company">Unknown visitor</span>
+            <span class="visitor-pages">3 pages</span>
+            <span class="visitor-tag tag-unknown">Anonymous</span>
+          </div>
+          <div class="dash-expand">
+            <div class="dash-expand-contact">
+              <div class="dash-expand-avatar">ML</div>
+              <div class="dash-expand-info">
+                <span class="dash-expand-name">Maria L.</span>
+                <span class="dash-expand-role">Marketing Manager</span>
+              </div>
+              <span class="dash-expand-email">maria.l@spotify.com</span>
+            </div>
+            <div class="dash-expand-actions">
+              <a href="#" class="dash-expand-btn dash-expand-btn-primary">Add to campaign &rarr;</a>
+              <a href="#" class="dash-expand-btn dash-expand-btn-secondary">View profile</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- LINE 2: Stays ghost (not everyone gets identified) -->
+        <div class="dash-line">
+          <div class="visitor-line ghost">
+            <span class="visitor-avatar ghost-av">?</span>
+            <span class="visitor-company">Unknown visitor</span>
+            <span class="visitor-pages">1 page</span>
+            <span class="visitor-tag tag-unknown">Anonymous</span>
+          </div>
+        </div>
+
+        <!-- LINE 3: Ghost → Decathlon -->
+        <div class="visitor-line-wrap dash-line" data-reveal="true" data-logo="https://www.google.com/s2/favicons?domain=decathlon.com&sz=128" data-name="Decathlon" data-detail="5 pages &bull; /case-studies">
+          <div class="visitor-line ghost">
+            <span class="visitor-avatar ghost-av">?</span>
+            <img class="visitor-avatar-img" style="display:none" src="https://www.google.com/s2/favicons?domain=decathlon.com&sz=128" alt="Decathlon">
+            <span class="visitor-company">Unknown visitor</span>
+            <span class="visitor-pages">5 pages</span>
+            <span class="visitor-tag tag-unknown">Anonymous</span>
+          </div>
+        </div>
+
+        <!-- LINE 4: Ghost → BMW -->
+        <div class="visitor-line-wrap dash-line" data-reveal="true" data-logo="https://cdn.simpleicons.org/bmw/0066B1" data-name="BMW Group" data-detail="4 pages &bull; /portfolio">
+          <div class="visitor-line ghost">
+            <span class="visitor-avatar ghost-av">?</span>
+            <img class="visitor-avatar-img" style="display:none" src="https://cdn.simpleicons.org/bmw/0066B1" alt="BMW">
+            <span class="visitor-company">Unknown visitor</span>
+            <span class="visitor-pages">4 pages</span>
+            <span class="visitor-tag tag-unknown">Anonymous</span>
+          </div>
+        </div>
+
+        <!-- LINE 5: Stays ghost -->
+        <div class="dash-line">
+          <div class="visitor-line ghost">
+            <span class="visitor-avatar ghost-av">?</span>
+            <span class="visitor-company">Unknown visitor</span>
+            <span class="visitor-pages">2 pages</span>
+            <span class="visitor-tag tag-unknown">Anonymous</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETPLACE POWER -->
+  <section class="marketplace">
+    <div class="container">
+      <div class="marketplace-visual" id="marketplace-flow">
+        <div class="mp-flow">
+          <!-- Step 1: Google + ChatGPT sources -->
+          <div class="mp-step mp-build-item">
+            <div class="mp-step-num">1</div>
+            <div class="mp-step-card">
+              <div class="mp-source-grid">
+                <!-- Google card -->
+                <div class="mp-source-card" id="mp-src-google">
+                  <div class="mp-source-header">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                    Google
+                  </div>
+                  <div class="mp-source-query mp-typewriter" data-typetext="performance marketing agency Berlin"></div>
+                  <div class="mp-source-result mp-type-reveal">
+                    <span class="mp-result-url">sortlist.com/.../berlin</span>
+                    <span class="mp-result-rank">#1</span>
+                  </div>
+                </div>
+                <!-- ChatGPT / OpenAI card -->
+                <div class="mp-source-card" id="mp-src-chatgpt">
+                  <div class="mp-source-header">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z" fill="#1A1A1A"/></svg>
+                    ChatGPT
+                  </div>
+                  <div class="mp-source-query mp-typewriter" data-typetext="best performance marketing agencies in Berlin"></div>
+                  <div class="mp-source-recommend mp-type-reveal">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Recommends sortlist.com
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow down -->
+          <div class="mp-arrow mp-build-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+          </div>
+
+          <!-- Step 2: Visitor identified (ghost → Spotify → Maria L.) -->
+          <div class="mp-step mp-build-item" id="mp-step2">
+            <div class="mp-step-num">2</div>
+            <div class="mp-step-card">
+              <!-- Ghost state (visible initially) -->
+              <div class="mp-ghost-row" id="mp-ghost">
+                <div class="mp-ghost-avatar"></div>
+                <div class="mp-ghost-lines">
+                  <div class="mp-ghost-bar mp-ghost-bar-w1"></div>
+                  <div class="mp-ghost-bar mp-ghost-bar-w2"></div>
+                </div>
+                <span class="mp-ghost-tag">Anonymous</span>
+              </div>
+              <!-- Identified: company (hidden initially) -->
+              <div class="mp-company-row mp-s2-reveal" id="mp-s2-company">
+                <div class="mp-company-logo" style="background: var(--white); padding: 4px;"><img src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify" width="20" height="20" style="display: block;"></div>
+                <div class="mp-company-info">
+                  <span class="mp-company-name">Spotify</span>
+                  <span class="mp-company-meta">Music streaming &bull; Stockholm &bull; 5,000+ employees</span>
+                </div>
+              </div>
+              <!-- Contact row (hidden initially) -->
+              <div class="mp-contact-row mp-s2-reveal" id="mp-s2-contact">
+                <div class="mp-contact-avatar">ML</div>
+                <div class="mp-contact-info">
+                  <span class="mp-contact-name">Maria L.</span>
+                  <span class="mp-contact-role">Marketing Manager</span>
+                </div>
+                <span class="mp-contact-verified">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  Verified
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow down -->
+          <div class="mp-arrow mp-build-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+          </div>
+
+          <!-- Step 3: Signal sent (progressive build + auto-click) -->
+          <div class="mp-step mp-build-item" id="mp-step3">
+            <div class="mp-step-num">3</div>
+            <div class="mp-step-card mp-step-card-highlight">
+              <div class="mp-signal-header mp-s3-reveal">
+                <span class="mp-signal-dot"></span>
+                New signal sent to your agency
+              </div>
+              <div class="mp-signal-body">
+                <div class="mp-signal-row mp-s3-reveal">
+                  <span class="mp-signal-label">Company</span>
+                  <span class="mp-signal-value">Spotify</span>
+                </div>
+                <div class="mp-signal-row mp-s3-reveal">
+                  <span class="mp-signal-label">Searched</span>
+                  <span class="mp-signal-value mp-signal-value-em">"performance marketing agency Berlin"</span>
+                </div>
+                <div class="mp-signal-row mp-s3-reveal">
+                  <span class="mp-signal-label">Budget</span>
+                  <span class="mp-signal-value">&euro;25K &ndash; &euro;50K</span>
+                </div>
+              </div>
+              <a href="#" class="mp-signal-cta mp-s3-reveal" id="mp-signal-cta-btn">Launch campaign &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="marketplace-content">
+        <div class="module-badge badge-signal">
+          <svg class="module-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Sortlist Signals
+        </div>
+        <h2>600,000 companies search Sortlist every month. We know <em>exactly what they need</em><span class="dot">.</span></h2>
+        <p>Sortlist ranks #1 on the most competitive agency keywords &mdash; "performance marketing agency Berlin", "SEO agency London", "UX design firm Paris". When a company lands on these pages, Radar identifies them, finds the right decision-maker, and sends the signal directly to you.</p>
+        <div class="marketplace-stats">
+          <div class="mp-stat">
+            <span class="mp-stat-number">2,400+</span>
+            <span class="mp-stat-label">High-intent landing pages</span>
+          </div>
+          <div class="mp-stat">
+            <span class="mp-stat-number">600K</span>
+            <span class="mp-stat-label">Monthly company searches</span>
+          </div>
+          <div class="mp-stat">
+            <span class="mp-stat-number">&lt; 5 min</span>
+            <span class="mp-stat-label">From visit to your inbox</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="steps" id="how-it-works">
+    <div class="container">
+      <div class="steps-header">
+        <h2>Your agency's new command center<span class="dot">.</span></h2>
+        <p>Everything Radar gives you &mdash; from first visit to first call.</p>
+      </div>
+      <div class="steps-grid">
+
+        <!-- Feature 1: Live visitor feed -->
+        <div class="step-card">
+          <div class="feature-visual">
+            <div class="feat-feed-header">
+              <span class="feat-feed-title">Visitors</span>
+              <span class="feat-live-dot">Live</span>
+            </div>
+            <div class="feat-feed-line is-id">
+              <img class="feat-feed-logo" src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify">
+              <span class="feat-feed-name">Spotify</span>
+              <span class="feat-feed-page">/services</span>
+              <span class="feat-feed-time">3 min</span>
+              <span class="feat-feed-badge id">Identified</span>
+            </div>
+            <div class="feat-feed-line is-id">
+              <img class="feat-feed-logo" src="https://cdn.simpleicons.org/bmw/0066B1" alt="BMW">
+              <span class="feat-feed-name">BMW Group</span>
+              <span class="feat-feed-page">/case-studies</span>
+              <span class="feat-feed-time">8 min</span>
+              <span class="feat-feed-badge id">Identified</span>
+            </div>
+            <div class="feat-feed-line is-ghost">
+              <div class="feat-feed-ghost-av"></div>
+              <span class="feat-feed-name">Unknown visitor</span>
+              <span class="feat-feed-page">/pricing</span>
+              <span class="feat-feed-time">12 min</span>
+              <span class="feat-feed-badge anon">Anonymous</span>
+            </div>
+          </div>
+          <h3>Live visitor feed</h3>
+          <p>See every company on your site as it happens. Company name, industry, pages viewed, time spent. Filter by size, location, or behaviour.</p>
+        </div>
+
+        <!-- Feature 2: Verified contacts -->
+        <div class="step-card">
+          <div class="feature-visual">
+            <div class="feat-contact">
+              <div class="feat-contact-header">
+                <div class="feat-contact-avatar">ML</div>
+                <div class="feat-contact-info">
+                  <span class="feat-contact-name">Maria L.</span>
+                  <span class="feat-contact-role">Marketing Manager, Spotify</span>
+                </div>
+              </div>
+              <div class="feat-contact-rows">
+                <div class="feat-contact-row">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span>m&bull;&bull;&bull;@spotify.com</span>
+                  <span class="feat-verified">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Verified
+                  </span>
+                </div>
+                <div class="feat-contact-row">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                  <span>linkedin.com/in/&bull;&bull;&bull;</span>
+                </div>
+                <div class="feat-contact-row">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <span>+46 &bull;&bull;&bull;&bull;&bull;&bull; 42</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h3>Verified contacts</h3>
+          <p>Every company comes with the right person. Verified email, phone, LinkedIn &mdash; ready to reach out. No manual research needed.</p>
+        </div>
+
+        <!-- Feature 3: Push to CRM & campaigns -->
+        <div class="step-card">
+          <div class="feature-visual">
+            <div class="feat-integ-line">
+              <img class="feat-integ-logo" src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot">
+              <span class="feat-integ-name">HubSpot</span>
+              <span class="feat-integ-status">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Synced
+              </span>
+            </div>
+            <div class="feat-integ-line">
+              <img class="feat-integ-logo" src="https://www.google.com/s2/favicons?domain=overloop.com&sz=64" alt="Overloop">
+              <span class="feat-integ-name">Overloop</span>
+              <span class="feat-integ-status">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Campaign launched
+              </span>
+            </div>
+            <div class="feat-integ-line">
+              <img class="feat-integ-logo" src="https://www.google.com/s2/favicons?domain=slack.com&sz=64" alt="Slack">
+              <span class="feat-integ-name">Slack</span>
+              <span class="feat-integ-status">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Team notified
+              </span>
+            </div>
+            <div class="feat-push-also">
+              <span class="feat-push-also-label">Also:</span>
+              <div class="feat-push-logos">
+                <img src="https://www.google.com/s2/favicons?domain=salesforce.com&sz=64" alt="Salesforce" title="Salesforce">
+                <img src="https://www.google.com/s2/favicons?domain=pipedrive.com&sz=64" alt="Pipedrive" title="Pipedrive">
+                <img src="https://www.google.com/s2/favicons?domain=zapier.com&sz=64" alt="Zapier" title="Zapier">
+              </div>
+            </div>
+          </div>
+          <h3>Push to CRM &amp; campaigns</h3>
+          <p>Leads push to your CRM with full context &mdash; then straight into an Overloop campaign. HubSpot, Pipedrive, Salesforce, Slack. Zero copy-paste.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="comparison">
+    <div class="container">
+      <div class="comparison-header">
+        <h2>Built for agencies, not for everyone<span class="dot">.</span></h2>
+        <p>See why Radar is different from generic visitor identification tools.</p>
+      </div>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Generic tools</th>
+            <th>Sortlist Radar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Visitor identification</td>
+            <td><span class="check">&#10003;</span></td>
+            <td><span class="check">&#10003;</span></td>
+          </tr>
+          <tr>
+            <td>Verified decision-maker contacts</td>
+            <td><span class="cross">Sometimes</span></td>
+            <td><span class="check">&#10003; Verified &amp; adapted to the most relevant decision-maker</span></td>
+          </tr>
+          <tr>
+            <td>Built for agency workflows</td>
+            <td><span class="cross">&#10007;</span></td>
+            <td><span class="check">&#10003; Designed for agencies</span></td>
+          </tr>
+          <tr>
+            <td>Know what service they're searching for</td>
+            <td><span class="cross">&#10007; Impossible</span></td>
+            <td><span class="check">&#10003; Powered by 600,000+ monthly searches</span></td>
+          </tr>
+          <tr>
+            <td>Search query, budget &amp; location data</td>
+            <td><span class="cross">&#10007;</span></td>
+            <td><span class="check">&#10003; Exclusive Sortlist data</span></td>
+          </tr>
+          <tr>
+            <td>Agency-friendly pricing</td>
+            <td><span class="cross">Per seat, expensive</span></td>
+            <td><span class="check">&#10003; Per agency, transparent</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="testimonials-header">
+        <div class="module-badge badge-results">
+          <svg class="module-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          Results
+        </div>
+        <h2>Agencies already seeing results<span class="dot">.</span></h2>
+      </div>
+      <div class="testimonial-block">
+        <div class="testimonial-block-content">
+          <div class="testimonial-metric">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+            12 new qualified leads in 14 days
+          </div>
+          <p class="testimonial-quote">"We installed Radar on a Friday. By Monday, we already knew which companies had visited our portfolio page over the weekend. We closed a deal with one of them within 3 weeks."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SB</div>
+            <div>
+              <div class="testimonial-name">Sarah B.</div>
+              <div class="testimonial-role">Growth Lead, Digital Agency &mdash; Brussels</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-block-visual">
+          <div class="testimonial-stat-card">
+            <div class="testimonial-stat-number">3x</div>
+            <div class="testimonial-stat-label">More pipeline from existing traffic</div>
+          </div>
+          <div class="testimonial-stat-card">
+            <div class="testimonial-stat-number">&lt;5 min</div>
+            <div class="testimonial-stat-label">Setup time &mdash; just one script tag</div>
+          </div>
+          <div class="testimonial-stat-card">
+            <div class="testimonial-stat-number">60%</div>
+            <div class="testimonial-stat-label">Of ghost visitors now identified</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="pricing-header">
+        <h2>Get started with Radar<span class="dot">.</span></h2>
+        <p>Flexible plans tailored to your agency. No hidden fees.</p>
+      </div>
+      <div class="pricing-single">
+        <div class="pricing-single-title">See Radar in action</div>
+        <p class="pricing-single-sub">Start with a free trial or book a personalized demo with our team.</p>
+        <ul class="pricing-features">
+          <li>Visitor identification on your website</li>
+          <li>Sortlist marketplace search signals</li>
+          <li>Verified decision-maker contacts</li>
+          <li>Push to CRM or launch LinkedIn &amp; email campaigns via Overloop</li>
+          <li>Slack notifications &amp; real-time dashboard</li>
+          <li>Setup in under 2 minutes</li>
+        </ul>
+        <div class="pricing-ctas">
+          <a href="#" class="pricing-cta pricing-cta-primary">Start free trial &rarr;</a>
+          <a href="#" class="pricing-cta pricing-cta-outline">Request a demo</a>
+        </div>
+        <div class="pricing-trust">
+          <span>No credit card required</span>
+          <span>&bull;</span>
+          <span>Setup in 2 minutes</span>
+          <span>&bull;</span>
+          <span>Cancel anytime</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <div class="faq-header">
+        <h2>Frequently asked questions<span class="dot">.</span></h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-question">
+            How does Radar identify website visitors?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Radar maps IP addresses to company data using a proprietary database updated daily. When a company visits your website, we identify the organization, enrich the data with firmographic information (size, industry, location), and surface verified decision-maker contacts. Installation takes under 2 minutes &mdash; just add a small script to your website.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Is Radar GDPR compliant?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Yes, 100%. Radar only identifies companies, not individual people. We use publicly available business data and IP-to-company mapping. No personal data is collected or stored. We process data within the EU in compliance with GDPR Article 6(1)(f) &mdash; legitimate interest for B2B marketing and analytics.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What makes Radar different from Leadfeeder, Leadinfo, etc.?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Unlike generic visitor identification tools, Radar is built specifically for agencies. The key differentiator: Radar is integrated with the Sortlist ecosystem &mdash; 600,000+ monthly company searches. This means you can see if a visitor is also actively searching for an agency on Sortlist &mdash; a unique buying intent signal no competitor can provide.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Does it integrate with our CRM?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Yes. Radar integrates natively with HubSpot, Pipedrive, Salesforce, and Slack. We also support Zapier and webhooks for custom workflows. Leads can be automatically pushed to your CRM with full context &mdash; company info, pages visited, intent signals.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How quickly will I see results?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Immediately. Once the tracking script is installed (2 minutes), you'll start seeing identified companies in real-time. Most agencies see their first qualified lead within the first 24 hours.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What happens after the free trial?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">After your trial, our team will walk you through a personalized recommendation based on the companies identified and your agency's traffic. No surprise charges, no commitments &mdash; if you decide not to continue, your account simply stops and no data is lost.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Stop losing clients you never knew you had<span class="dot">.</span></h2>
+      <p>Your next client is on your website right now. Start identifying them today.</p>
+      <a href="#pricing" class="btn-white">Start your free trial &rarr;</a>
+      <div class="final-trust">
+        <span>No credit card required</span>
+        <span>&bull;</span>
+        <span>14-day free trial</span>
+        <span>&bull;</span>
+        <span>Cancel anytime</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-brand-name">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" enable-background="new 0 0 283.5 72.3" viewBox="0 0 283.5 72.3" height="28"><path fill="#0F0D0A" d="M280.1 60.4c-1.1 1.1-3 1.8-5 1.8-2.7 0-4.9-2.4-4.9-5.8V30.8h11.3V21h-11.3V7.3h-11.4v50.6c0 8.4 5.8 14.4 14.1 14.4 3.9 0 8-1.6 10.8-4l-3.6-7.9z"/><path fill="#0F0D0A" d="M24 40.9c-7.7-2.3-10.8-3.2-10.8-6.5 0-3.5 3.5-5.5 8-5.5 4.6 0 9.8 1.9 14.5 4.9l4.6-8c-5.4-3.6-12.3-6-19.1-6-11.2.1-18.9 6.5-18.9 15.8 0 9.1 6.9 12.1 17.7 15 6 1.6 10.7 2.9 10.7 6.9 0 3.5-3.2 5.7-8.5 5.7-5.5 0-11.8-2.2-17.2-6.1l-5 7.8c6 4.8 14.3 7.5 22 7.5 11.6 0 19.7-6.2 19.7-15.9 0-10.4-9.2-13.2-17.7-15.6z"/><path fill="#0F0D0A" d="M200.1 13.5c3.7 0 6.6-3.2 6.6-6.8 0-3.6-2.9-6.7-6.6-6.7-3.8 0-6.8 3.1-6.8 6.7s3 6.8 6.8 6.8z"/><path fill="#0F0D0A" d="M206 21h-11.8v50.1H206V21z"/><path fill="#0F0D0A" d="M183.8 3.4H172v67.8h11.8V3.4z"/><path fill="#0F0D0A" d="M158.9 62.3c-2.7 0-4.9-2.4-4.9-5.8V30.8h11.3V21H154V7.3h-6.5c0 3.5-1.1 6.7-2.9 9.1-2 2.7-5 4.5-8.3 4.5h-1.6l-1.8 10h9.6V58c0 8.4 5.8 14.4 14.1 14.4 3.9 0 8-1.6 10.8-4l-3.4-8c-1.2 1.1-3.1 1.9-5.1 1.9z"/><path fill="#0F0D0A" d="M114.4 31.6V21h-11.8v50.1h11.8V46.9c0-9.5 5.5-16 15.1-16l1.9-9.9c-10.8-.1-13.8 4.1-17 10.6z"/><path fill="#0F0D0A" d="M70.8 19.9c-14.8 0-27 11.7-27 26.2s12.1 26.3 27 26.3c14.7 0 26.8-11.8 26.8-26.3S85.5 19.9 70.8 19.9zm0 42.4c-8.4 0-15.3-7.3-15.3-16.2 0-8.9 6.9-16.1 15.3-16.1 8.3 0 15.1 7.2 15.1 16.1 0 8.9-6.8 16.2-15.1 16.2z"/><path fill="#0F0D0A" d="M236.2 40.9c-7.7-2.3-10.8-3.2-10.8-6.5 0-3.5 3.5-5.5 8-5.5 4.6 0 9.8 1.9 14.5 4.9l4.6-8c-5.4-3.6-12.3-6-19.1-6-11.2 0-18.9 6.4-18.9 15.7 0 9.1 6.9 12.1 17.7 15 6 1.6 10.7 2.9 10.7 6.9 0 3.5-3.2 5.7-8.5 5.7-5.5 0-11.8-2.2-17.2-6.1l-5 7.8c6 4.8 14.3 7.5 22 7.5 11.6 0 19.7-6.2 19.7-15.9 0-10.3-9.2-13.1-17.7-15.5z"/></svg>
+          </div>
+          <div class="footer-tagline">Building great business stories.</div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <a href="#how-it-works">How it works</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#">Integrations</a>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <a href="https://www.sortlist.com/about">About Sortlist</a>
+            <a href="https://www.sortlist.com/blog">Blog</a>
+            <a href="https://www.sortlist.com/contact">Contact</a>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">GDPR</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>2026 &copy; Sortlist &mdash; All rights reserved</p>
+        <p><a href="#">Privacy Policy</a> &middot; <a href="#">Terms of Use</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+
+      /* ---- FAQ Accordion ---- */
+      document.querySelectorAll('.faq-question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var item = btn.parentElement;
+          var isOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+          if (!isOpen) item.classList.add('open');
+        });
+      });
+
+      /* ---- Smooth scroll ---- */
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          var target = document.querySelector(this.getAttribute('href'));
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      /* ---- Scroll fade-in (IntersectionObserver) ---- */
+      var animEls = document.querySelectorAll('[data-animate]');
+      if ('IntersectionObserver' in window) {
+        var fadeObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              fadeObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        animEls.forEach(function(el) { fadeObserver.observe(el); });
+      } else {
+        animEls.forEach(function(el) { el.classList.add('is-visible'); });
+      }
+
+      /* ---- Dashboard looping animation ---- */
+      var dashboardVisual = document.getElementById('dashboard-visual');
+      var dashTimers = [];
+      var dashInView = false;
+
+      if (dashboardVisual && 'IntersectionObserver' in window) {
+        var dashObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting && !dashInView) {
+              dashInView = true;
+              /* Reset to ghost then start fresh cycle */
+              dashResetState();
+              dashRunCycle();
+            } else if (!entry.isIntersecting && dashInView) {
+              dashInView = false;
+              /* Stop all pending timers — freeze on current state */
+              dashTimers.forEach(function(t) { clearTimeout(t); });
+              dashTimers = [];
+            }
+          });
+        }, { threshold: 0.3, rootMargin: '0px 0px -25% 0px' });
+        dashObserver.observe(dashboardVisual);
+      }
+
+      function dashAddTimer(fn, delay) {
+        var t = setTimeout(function() {
+          if (!dashInView) return;
+          fn();
+        }, delay);
+        dashTimers.push(t);
+      }
+
+      /* Reset all lines back to ghost state (instant, no transitions) */
+      function dashResetState() {
+        dashboardVisual.querySelectorAll('.dash-line').forEach(function(wrap, gi) {
+          var line = wrap.querySelector('.visitor-line');
+          var ghostAv = line.querySelector('.visitor-avatar.ghost-av');
+          var imgAv = line.querySelector('.visitor-avatar-img');
+          var company = line.querySelector('.visitor-company');
+          var pages = line.querySelector('.visitor-pages');
+          var tag = line.querySelector('.visitor-tag');
+          var ghostPages = ['3 pages', '1 page', '5 pages', '4 pages', '2 pages'];
+
+          line.classList.remove('identified');
+          line.classList.add('ghost');
+          if (ghostAv) ghostAv.style.display = '';
+          if (imgAv) imgAv.style.display = 'none';
+          if (company) company.textContent = 'Unknown visitor';
+          if (pages) pages.textContent = ghostPages[gi] || '1 page';
+          if (tag) {
+            tag.classList.remove('tag-identified');
+            tag.classList.add('tag-unknown');
+            tag.textContent = 'Anonymous';
+          }
+        });
+
+        var expand = dashboardVisual.querySelector('.dash-expand');
+        if (expand) expand.classList.remove('is-open');
+        var campBtn = dashboardVisual.querySelector('.dash-expand-btn-primary');
+        if (campBtn) {
+          campBtn.classList.remove('is-sent');
+          campBtn.innerHTML = 'Add to campaign &rarr;';
+        }
+        dashboardVisual.classList.remove('dash-resetting');
+      }
+
+      /* Run one full cycle: identify → expand → campaign → pause → fade → reset → replay */
+      function dashRunCycle() {
+        if (!dashInView) return;
+        dashTimers = [];
+
+        var revealLines = dashboardVisual.querySelectorAll('.dash-line[data-reveal="true"]');
+
+        /* Phase 1: ghost → identified, staggered 400ms */
+        revealLines.forEach(function(wrap, i) {
+          dashAddTimer(function() {
+            var line = wrap.querySelector('.visitor-line');
+            var ghostAv = line.querySelector('.visitor-avatar.ghost-av');
+            var imgAv = line.querySelector('.visitor-avatar-img');
+            var company = line.querySelector('.visitor-company');
+            var pages = line.querySelector('.visitor-pages');
+            var tag = line.querySelector('.visitor-tag');
+
+            line.classList.remove('ghost');
+            line.classList.add('identified');
+            if (ghostAv) ghostAv.style.display = 'none';
+            if (imgAv) imgAv.style.display = 'block';
+            if (company) company.textContent = wrap.getAttribute('data-name');
+            if (pages) pages.innerHTML = wrap.getAttribute('data-detail');
+            if (tag) {
+              tag.classList.remove('tag-unknown');
+              tag.classList.add('tag-identified');
+              tag.textContent = 'Identified';
+            }
+          }, 600 + i * 400);
+        });
+
+        /* Phase 2: expand contact panel */
+        dashAddTimer(function() {
+          var el = dashboardVisual.querySelector('.dash-line[data-expand="true"] .dash-expand');
+          if (el) el.classList.add('is-open');
+        }, 2200);
+
+        /* Phase 2b: auto-trigger campaign button */
+        dashAddTimer(function() {
+          var btn = dashboardVisual.querySelector('.dash-expand-btn-primary');
+          if (btn) {
+            btn.classList.add('is-sent');
+            btn.innerHTML = 'Added &#10003;';
+          }
+        }, 3400);
+
+        /* Phase 3: hold → fade out → reset → fade in → replay */
+        dashAddTimer(function() {
+          dashboardVisual.classList.add('dash-resetting');
+          dashAddTimer(function() {
+            dashResetState();
+            dashAddTimer(function() {
+              dashRunCycle();
+            }, 400);
+          }, 400);
+        }, 5200);
+      }
+
+      /* ---- Marketplace flow: full orchestrated animation ---- */
+      function mpTypewrite(el, text, speed, cb) {
+        var i = 0;
+        el.textContent = '';
+        el.classList.add('is-typing');
+        function tick() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i++;
+            setTimeout(tick, speed);
+          } else {
+            el.classList.remove('is-typing');
+            el.classList.add('is-done');
+            if (cb) cb();
+          }
+        }
+        tick();
+      }
+
+      var mpFlow = document.getElementById('marketplace-flow');
+      if (mpFlow && 'IntersectionObserver' in window) {
+        var mpDone = false;
+        var mpObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting && !mpDone) {
+              mpDone = true;
+
+              var items = mpFlow.querySelectorAll('.mp-build-item');
+              var step1 = items[0];
+              var arrow1 = items[1];
+              var step2 = items[2];
+              var arrow2 = items[3];
+              var step3 = items[4];
+
+              // Step 1 elements
+              var googleQuery = document.querySelector('#mp-src-google .mp-typewriter');
+              var googleResult = document.querySelector('#mp-src-google .mp-type-reveal');
+              var chatQuery = document.querySelector('#mp-src-chatgpt .mp-typewriter');
+              var chatResult = document.querySelector('#mp-src-chatgpt .mp-type-reveal');
+
+              // Step 2 elements
+              var ghost = document.getElementById('mp-ghost');
+              var s2Company = document.getElementById('mp-s2-company');
+              var s2Contact = document.getElementById('mp-s2-contact');
+
+              // Step 3 elements
+              var s3Items = document.querySelectorAll('.mp-s3-reveal');
+              var ctaBtn = document.getElementById('mp-signal-cta-btn');
+
+              /* ===== PHASE 1: Step 1 — typewriter ===== */
+              step1.classList.add('is-built');
+
+              setTimeout(function() {
+                mpTypewrite(googleQuery, googleQuery.getAttribute('data-typetext'), 45, function() {
+                  googleResult.classList.add('is-revealed');
+
+                  setTimeout(function() {
+                    mpTypewrite(chatQuery, chatQuery.getAttribute('data-typetext'), 40, function() {
+                      chatResult.classList.add('is-revealed');
+
+                      /* ===== PHASE 2: Arrow 1 + Step 2 — ghost → Spotify → Maria L. ===== */
+                      setTimeout(function() {
+                        arrow1.classList.add('is-built');
+
+                        setTimeout(function() {
+                          step2.classList.add('is-built');
+
+                          // Step 2 arrives showing ghost row. After a beat, hide ghost → reveal Spotify
+                          setTimeout(function() {
+                            ghost.classList.add('is-hidden');
+
+                            setTimeout(function() {
+                              s2Company.classList.add('is-revealed');
+
+                              // Then reveal Maria L.
+                              setTimeout(function() {
+                                s2Contact.classList.add('is-revealed');
+
+                                /* ===== PHASE 3: Arrow 2 + Step 3 — signal build + launch ===== */
+                                setTimeout(function() {
+                                  arrow2.classList.add('is-built');
+
+                                  setTimeout(function() {
+                                    step3.classList.add('is-built');
+
+                                    // Stagger reveal signal rows
+                                    setTimeout(function() {
+                                      s3Items.forEach(function(item, k) {
+                                        setTimeout(function() {
+                                          item.classList.add('is-revealed');
+                                        }, k * 300);
+                                      });
+
+                                      // After all rows revealed, auto-click the CTA
+                                      var ctaDelay = s3Items.length * 300 + 600;
+                                      setTimeout(function() {
+                                        if (ctaBtn) {
+                                          ctaBtn.classList.add('is-launched');
+                                          ctaBtn.innerHTML = 'Launched &#10003;';
+                                        }
+                                      }, ctaDelay);
+                                    }, 300);
+                                  }, 400);
+                                }, 300);
+                              }, 500);
+                            }, 400);
+                          }, 700);
+                        }, 400);
+                      }, 400);
+                    });
+                  }, 300);
+                });
+              }, 600);
+
+              mpObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        mpObserver.observe(mpFlow);
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
