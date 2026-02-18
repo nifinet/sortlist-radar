@@ -47,7 +47,7 @@
       --font-serif: 'Playfair Display', Georgia, serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       font-family: var(--font);
@@ -406,7 +406,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
-      align-items: center;
+      align-items: start;
     }
 
     .problem-content h2 {
@@ -998,8 +998,8 @@
     }
 
     .comparison-table thead th:last-child {
-      background: var(--primary-50);
-      color: var(--primary-500);
+      background: var(--secondary-200);
+      color: var(--secondary-950);
       font-weight: 700;
     }
 
@@ -1016,8 +1016,8 @@
     }
 
     .comparison-table tbody td:last-child {
-      background: var(--primary-50);
-      color: var(--primary-500);
+      background: var(--white);
+      color: var(--secondary-700);
       font-weight: 500;
     }
 
@@ -1279,6 +1279,11 @@
       .pricing-ctas {
         flex-direction: column;
       }
+
+      /* Navbar */
+      .nav-wordmark { display: none; }
+      .nav-badge { display: none; }
+      .nav-cta { padding: 10px 14px; font-size: 13px; min-height: 40px; }
     }
 
     /* ---- FAQ ---- */
@@ -1507,12 +1512,32 @@
       }
     }
 
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 768px) {
+    /* ---- RESPONSIVE: 960px (grid stacking) ---- */
+    @media (max-width: 960px) {
       .problem .container {
         grid-template-columns: 1fr;
         gap: 48px;
       }
+      .marketplace .container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .marketplace .container > .marketplace-visual { order: 2; }
+      .marketplace .container > .marketplace-content { order: 1; }
+    }
+
+    /* ---- RESPONSIVE: 768px ---- */
+    @media (max-width: 768px) {
+      /* Section padding reduction */
+      .problem, .marketplace, .steps, .comparison, .testimonials, .pricing, .faq, .final-cta {
+        padding: 64px 0 40px;
+      }
+
+      /* Hero */
+      .hero { padding: 120px 0 64px; }
+      .hero h1 { font-size: clamp(30px, 8vw, 38px); }
+      .hero-sub { font-size: 15px; }
+      .hero-wave { height: 48px; }
 
       .steps-grid {
         grid-template-columns: 1fr;
@@ -1526,8 +1551,6 @@
         font-size: 12px;
       }
 
-      .hero h1 { font-size: 32px; }
-
       .problem-content h2,
       .steps-header h2,
       .comparison-header h2,
@@ -1538,10 +1561,34 @@
         font-size: 28px;
       }
 
+      .marketplace-content h2 { font-size: 28px; }
+
       .problem-stat {
         flex-direction: column;
         text-align: center;
       }
+
+      /* Dashboard visual */
+      .problem-visual { padding: 16px; }
+      .visitor-pages { display: none; }
+      .dash-expand.is-open { max-height: 220px; }
+      .dash-expand-contact { flex-wrap: wrap; }
+      .dash-expand-email { width: 100%; margin-left: 38px; }
+      .dash-expand-actions { flex-direction: column; }
+
+      /* Marquee */
+      .marquee-wrapper::before, .marquee-wrapper::after { width: 40px; }
+      .marquee-track { gap: 60px; }
+      .marquee-track img { height: 28px; }
+
+      /* Testimonials */
+      .testimonial-quote { font-size: 20px; }
+      .testimonial-stat-number { font-size: 32px; }
+      .problem-stat-number { font-size: 36px; }
+
+      /* Trust items */
+      .final-trust { flex-wrap: wrap; gap: 8px 16px; }
+      .pricing-trust { flex-wrap: wrap; gap: 8px 12px; }
     }
 
     /* =========================================
@@ -1770,7 +1817,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
-      align-items: center;
+      align-items: start;
     }
 
     .marketplace-content h2 {
@@ -2134,6 +2181,23 @@
       .mp-source-grid {
         grid-template-columns: 1fr;
       }
+
+      /* Marketplace visual */
+      .marketplace-visual { padding: 16px; }
+      .mp-step { gap: 8px; }
+      .mp-step-num { width: 20px; height: 20px; font-size: 10px; margin-top: 8px; border-radius: 5px; }
+      .mp-step-card { padding: 10px 12px; }
+      .mp-signal-value-em { word-break: break-word; font-size: 11px; }
+      .mp-company-meta { font-size: 10px; }
+
+      /* Feature mini-visuals */
+      .step-card { padding: 24px; }
+      .feat-feed-badge { display: none; }
+      .feat-feed-time { display: none; }
+      .feat-feed-name { flex-shrink: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+      /* Typewriter — prevent height jumps on narrow screens */
+      .mp-typewriter { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     }
 
     /* Step 2: Company + contact */
@@ -2316,23 +2380,6 @@
     }
 
     @media (max-width: 768px) {
-      .marketplace .container {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      .marketplace .container > .marketplace-visual {
-        order: 2;
-      }
-
-      .marketplace .container > .marketplace-content {
-        order: 1;
-      }
-
-      .marketplace-content h2 {
-        font-size: 28px;
-      }
-
       .marketplace-stats {
         flex-direction: column;
         gap: 12px;
@@ -2790,6 +2837,7 @@
         <h2>Built for agencies, not for everyone<span class="dot">.</span></h2>
         <p>See why Radar is different from generic visitor identification tools.</p>
       </div>
+      <div style="overflow-x:auto; -webkit-overflow-scrolling:touch">
       <table class="comparison-table">
         <thead>
           <tr>
@@ -2807,30 +2855,31 @@
           <tr>
             <td>Verified decision-maker contacts</td>
             <td><span class="cross">Sometimes</span></td>
-            <td><span class="check">&#10003; Verified &amp; adapted to the most relevant decision-maker</span></td>
+            <td><span class="check">&#10003;</span> Verified &amp; adapted to the most relevant decision-maker</td>
           </tr>
           <tr>
             <td>Built for agency workflows</td>
             <td><span class="cross">&#10007;</span></td>
-            <td><span class="check">&#10003; Designed for agencies</span></td>
+            <td><span class="check">&#10003;</span> Designed for agencies</td>
           </tr>
           <tr>
             <td>Know what service they're searching for</td>
             <td><span class="cross">&#10007; Impossible</span></td>
-            <td><span class="check">&#10003; Powered by 600,000+ monthly searches</span></td>
+            <td><span class="check">&#10003;</span> Powered by 600,000+ monthly searches</td>
           </tr>
           <tr>
             <td>Search query, budget &amp; location data</td>
             <td><span class="cross">&#10007;</span></td>
-            <td><span class="check">&#10003; Exclusive Sortlist data</span></td>
+            <td><span class="check">&#10003;</span> Exclusive Sortlist data</td>
           </tr>
           <tr>
             <td>Agency-friendly pricing</td>
             <td><span class="cross">Per seat, expensive</span></td>
-            <td><span class="check">&#10003; Per agency, transparent</span></td>
+            <td><span class="check">&#10003;</span> Per agency, transparent</td>
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
 
