@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* ---------- Sortlist design tokens ---------- */
+  --color-primary-50: #EDECFE;
+  --color-primary-100: #DCDAFD;
+  --color-primary-200: #B9B5FB;
+  --color-primary-500: #200DF2;
+  --color-primary-600: #1A0BC4;
+  --color-primary-700: #150996;
+  --color-primary-800: #100768;
+  --color-primary-900: #020219;
+
+  --color-secondary-100: #FBFAF9;
+  --color-secondary-200: #F1EDEA;
+  --color-secondary-300: #E7DFDA;
+  --color-secondary-400: #B8AFA8;
+  --color-secondary-500: #7E7367;
+  --color-secondary-600: #5C534A;
+  --color-secondary-700: #463F39;
+  --color-secondary-800: #2A2521;
+  --color-secondary-900: #1B1917;
+  --color-secondary-950: #0F0D0A;
+
+  --color-danger-200: #F7DEE8;
+  --color-danger-500: #BD0F58;
+
+  --color-success-200: #E2F0DB;
+  --color-success-500: #5C9550;
+
+  /* ---------- Fonts ---------- */
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+
+  /* ---------- Custom breakpoints ---------- */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 600px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 960px;
+  --breakpoint-xl: 1152px;
+  --breakpoint-2xl: 1400px;
+}
+
+/* ---------- Base styles ---------- */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes mp-blink {
+  50% { opacity: 0; }
+}
+
+/* ---------- Dashboard animation classes ---------- */
+.dash-resetting {
+  opacity: 0;
+}
+
+.dash-no-transition,
+.dash-no-transition .visitor-line,
+.dash-no-transition .visitor-avatar,
+.dash-no-transition .visitor-avatar-img,
+.dash-no-transition .visitor-tag,
+.dash-no-transition .dash-expand {
+  transition: none !important;
+}
+
+/* ---------- Marketplace typewriter ---------- */
+.mp-typewriter {
+  min-height: 1.4em;
+}
+
+.mp-typewriter.is-typing::after {
+  content: '|';
+  color: var(--color-secondary-400);
+  animation: mp-blink 0.6s step-end infinite;
+  margin-left: 1px;
+  font-weight: 400;
+}
+
+.mp-typewriter.is-done::before {
+  content: '\201C';
+}
+
+.mp-typewriter.is-done::after {
+  content: '\201D';
+  animation: none;
+  color: inherit;
+  margin-left: 0;
+  font-weight: inherit;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .dash-line .visitor-line,
+  .dash-line .visitor-avatar,
+  .dash-line .visitor-avatar-img,
+  .dash-line .visitor-tag,
+  .dash-expand,
+  .mp-build-item,
+  .mp-source-card,
+  .mp-type-reveal,
+  .mp-ghost-row,
+  .mp-s2-reveal,
+  .mp-s3-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .dash-expand {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+  }
+}
