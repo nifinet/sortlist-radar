@@ -1622,13 +1622,6 @@
       transition: all 0.5s cubic-bezier(.22,1,.36,1);
     }
 
-    .dash-line .visitor-line.is-identified {
-      background: var(--white);
-      border: 1px solid var(--secondary-300);
-      color: var(--secondary-800);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
     .dash-line .visitor-avatar,
     .dash-line .visitor-avatar-img {
       transition: all 0.3s cubic-bezier(.22,1,.36,1);
@@ -1640,11 +1633,20 @@
 
     /* Dashboard fade for loop reset */
     .problem-visual {
-      transition: opacity 0.35s ease;
+      transition: opacity 0.4s ease;
     }
 
     .problem-visual.dash-resetting {
-      opacity: 0.15;
+      opacity: 0;
+    }
+
+    .problem-visual.dash-no-transition,
+    .problem-visual.dash-no-transition .visitor-line,
+    .problem-visual.dash-no-transition .visitor-avatar,
+    .problem-visual.dash-no-transition .visitor-avatar-img,
+    .problem-visual.dash-no-transition .visitor-tag,
+    .problem-visual.dash-no-transition .dash-expand {
+      transition: none !important;
     }
 
     /* Phase 2: expand panel (contact + actions) — hidden by default */
@@ -1937,6 +1939,9 @@
       border: 1px solid var(--secondary-300);
       border-radius: 8px;
       padding: 10px 12px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.45s cubic-bezier(.22,1,.36,1), transform 0.45s cubic-bezier(.22,1,.36,1);
     }
 
     .mp-source-header {
@@ -1984,12 +1989,6 @@
     }
 
     /* Source cards staggered reveal inside Step 1 */
-    .mp-source-card {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.45s cubic-bezier(.22,1,.36,1), transform 0.45s cubic-bezier(.22,1,.36,1);
-    }
-
     .mp-build-item.is-built .mp-source-card:nth-child(1) {
       opacity: 1;
       transform: translateY(0);
@@ -2352,7 +2351,12 @@
       .dash-line .visitor-avatar-img,
       .dash-line .visitor-tag,
       .dash-expand,
-      .mp-build-item {
+      .mp-build-item,
+      .mp-source-card,
+      .mp-type-reveal,
+      .mp-ghost-row,
+      .mp-s2-reveal,
+      .mp-s3-reveal {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
@@ -3110,7 +3114,6 @@
           campBtn.classList.remove('is-sent');
           campBtn.innerHTML = 'Add to campaign &rarr;';
         }
-        dashboardVisual.classList.remove('dash-resetting');
       }
 
       /* Run one full cycle: identify → expand → campaign → pause → fade → reset → replay */
@@ -3159,15 +3162,22 @@
           }
         }, 3400);
 
-        /* Phase 3: hold → fade out → reset → fade in → replay */
+        /* Phase 3: hold → fade out → reset (while invisible) → fade in → replay */
         dashAddTimer(function() {
           dashboardVisual.classList.add('dash-resetting');
           dashAddTimer(function() {
+            /* Fully faded out — kill transitions, reset DOM instantly */
+            dashboardVisual.classList.add('dash-no-transition');
             dashResetState();
+            /* Force reflow so browser registers the no-transition reset */
+            void dashboardVisual.offsetHeight;
+            /* Re-enable transitions, remove resetting class to fade back in */
+            dashboardVisual.classList.remove('dash-no-transition');
+            dashboardVisual.classList.remove('dash-resetting');
             dashAddTimer(function() {
               dashRunCycle();
-            }, 400);
-          }, 400);
+            }, 600);
+          }, 450);
         }, 5200);
       }
 
