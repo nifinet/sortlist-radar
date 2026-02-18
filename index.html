@@ -1152,61 +1152,45 @@
     /* ---- PRICING ---- */
     .pricing {
       padding: 128px 0 64px;
-      background: var(--white);
-    }
-
-    .pricing-header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .pricing-header h2 {
-      font-size: 40px;
-      font-weight: 700;
-      line-height: 1.15;
-      color: var(--secondary-950);
-      margin-bottom: 16px;
-      letter-spacing: -1px;
-    }
-
-    .pricing-header p {
-      font-size: 17px;
-      color: var(--secondary-600);
+      background: var(--secondary-100);
     }
 
     .pricing-single {
-      max-width: 560px;
+      max-width: 600px;
       margin: 0 auto;
       background: var(--white);
       border: 1px solid var(--secondary-300);
+      border-top: 3px solid var(--primary-500);
       border-radius: 16px;
-      padding: 48px 40px;
+      padding: 56px 48px;
       text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.04);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
     }
 
     .pricing-single-title {
       font-family: var(--font-serif);
-      font-size: 26px;
+      font-size: 32px;
       font-weight: 700;
       font-style: normal;
       color: var(--secondary-950);
-      margin-bottom: 8px;
-      letter-spacing: -0.3px;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
     }
 
     .pricing-single-sub {
-      font-size: 15px;
+      font-size: 16px;
       color: var(--secondary-500);
       line-height: 1.6;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
     }
 
     .pricing-features {
       list-style: none;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
       text-align: left;
-      display: inline-block;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 32px;
     }
 
     .pricing-features li {
@@ -1215,18 +1199,18 @@
       padding: 8px 0;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .pricing-features li::before {
       content: "";
-      width: 18px;
-      height: 18px;
-      background: var(--success-200);
+      width: 20px;
+      height: 20px;
+      background: var(--primary-50);
       border-radius: 50%;
       display: inline-flex;
       flex-shrink: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C9550' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23200DF2' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
       background-size: 11px;
       background-position: center;
       background-repeat: no-repeat;
@@ -1235,12 +1219,12 @@
     .pricing-ctas {
       display: flex;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .pricing-cta {
       flex: 1;
-      padding: 13px 20px;
+      padding: 14px 24px;
       min-height: 52px;
       border-radius: 10px;
       font-family: var(--font);
@@ -1259,16 +1243,15 @@
       background: var(--primary-500);
       color: var(--white);
       border: none;
-      box-shadow: 0 1px 2px 0 rgba(32,13,242,.18), 0 0 8px 0 rgba(32,13,242,.12);
+      box-shadow: 0 2px 4px 0 rgba(32,13,242,.2), 0 0 12px 0 rgba(32,13,242,.1);
     }
 
     .pricing-cta-primary:hover { background: var(--primary-600); }
 
     .pricing-cta-outline {
-      background: transparent;
+      background: var(--white);
       color: var(--secondary-700);
       border: 1px solid var(--secondary-300);
-      box-shadow: 0 1px 2px 0 hsla(31,10%,45%,.18), 0 0 8px 0 hsla(31,10%,45%,.12);
     }
 
     .pricing-cta-outline:hover {
@@ -1284,9 +1267,13 @@
       color: var(--secondary-400);
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       .pricing-single {
-        padding: 36px 24px;
+        padding: 40px 24px;
+      }
+
+      .pricing-features {
+        grid-template-columns: 1fr;
       }
 
       .pricing-ctas {
@@ -1545,7 +1532,7 @@
       .steps-header h2,
       .comparison-header h2,
       .testimonials-header h2,
-      .pricing-header h2,
+      .pricing-single-title,
       .faq-header h2,
       .final-cta h2 {
         font-size: 28px;
@@ -2889,20 +2876,16 @@
   <!-- PRICING -->
   <section class="pricing" id="pricing">
     <div class="container">
-      <div class="pricing-header">
-        <h2>Get started with Radar<span class="dot">.</span></h2>
-        <p>Flexible plans tailored to your agency. No hidden fees.</p>
-      </div>
       <div class="pricing-single">
-        <div class="pricing-single-title">See Radar in action</div>
-        <p class="pricing-single-sub">Start with a free trial or book a personalized demo with our team.</p>
+        <div class="pricing-single-title">Get started with Radar</div>
+        <p class="pricing-single-sub">Try it free or book a personalized demo. Flexible plans tailored to your agency &mdash; no hidden fees.</p>
         <ul class="pricing-features">
-          <li>Visitor identification on your website</li>
-          <li>Sortlist marketplace search signals</li>
+          <li>Visitor identification</li>
+          <li>Marketplace search signals</li>
           <li>Verified decision-maker contacts</li>
-          <li>Push to CRM or launch LinkedIn &amp; email campaigns via Overloop</li>
-          <li>Slack notifications &amp; real-time dashboard</li>
-          <li>Setup in under 2 minutes</li>
+          <li>Real-time dashboard</li>
+          <li>CRM &amp; Overloop campaign push</li>
+          <li>Setup in 2 minutes</li>
         </ul>
         <div class="pricing-ctas">
           <a href="#" class="pricing-cta pricing-cta-primary">Start free trial &rarr;</a>
@@ -2910,8 +2893,6 @@
         </div>
         <div class="pricing-trust">
           <span>No credit card required</span>
-          <span>&bull;</span>
-          <span>Setup in 2 minutes</span>
           <span>&bull;</span>
           <span>Cancel anytime</span>
         </div>
